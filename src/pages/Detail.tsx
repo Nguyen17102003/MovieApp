@@ -1,14 +1,14 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useQueries } from '@tanstack/react-query'
-import DetailBanner from '../components/DetailBanner'
-import Video from '../components/Video'
-import Slider from '../components/Slider'
+import DetailBanner from '../components/DetailComponents/DetailBanner'
+import Video from '../components/DetailComponents/Video'
+import Slider from '../components/UtilityComponents/Slider'
 
-const Detail = () => {
+const Detail:React.FC = () => {
   const { type, id } = useParams() // Lấy type ('/movie', '/tv') và id phim
-  const API_URL = import.meta.env.VITE_API_URL // API URL
-  const API_KEY = import.meta.env.VITE_API_KEY // API KEY
+  const API_URL = import.meta.env.VITE_API_URL as string // API URL
+  const API_KEY = import.meta.env.VITE_API_KEY as string // API KEY
   const fetchURL = `${API_URL}/${type}/${id}` 
   // Tham số phụ khi fetch
   const options = {
@@ -34,7 +34,7 @@ const Detail = () => {
           fetch(`${fetchURL}/credits?language=en-US`, options)
             .then(res => res.json())
             .then(data =>
-              data.cast.filter(cast => cast.known_for_department === 'Acting').slice(0, 5)
+              data.cast.filter((cast:any) => cast.known_for_department === 'Acting').slice(0, 5)
             )
       },
       {
@@ -59,20 +59,16 @@ const Detail = () => {
   return (
     <div>
       <DetailBanner
-        backdrop_path={details?.backdrop_path}
-        poster_path={details?.poster_path}
-        title={details?.title}
-        genres={details?.genres}
-        overview={details?.overview}
+        movie={details}
         casts={casts}
       />
 
-      {videos.map(video => (
-        <Video key={video.id} name={video.name} videoKey={video.key} />
+      {videos.map((video: any) => (
+        <Video key={video.id} id={video.id} name={video.name} videoKey={video.key} />
       ))}
 
       <div className="min-w-screen w-full xl:px-15 py-10 bg-black">
-        <Slider type="Similar" movies={similar} />
+        <Slider title='Similar' type={type} movies={similar} />
       </div>
     </div>
   )

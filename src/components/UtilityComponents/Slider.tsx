@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
+import { sliderProps } from '../../interface/interfaces';
 import SliderItem from './SliderItem'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
@@ -7,10 +8,10 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css'
 
-const Slider = ({type, movies, route}) => {
+const Slider:React.FC<sliderProps> = ({title='', type, movies}) => {
   const redirect = () => {
     // Điều hướng trang web
-    if(type.includes('Movies'))
+    if(type === 'movie')
         window.location.href = '/movie'
     else window.location.href = '/tv'
   }
@@ -18,7 +19,7 @@ const Slider = ({type, movies, route}) => {
     <div className='w-full bg-black px-3 xl:px-8 py-0 pb-5 xl:py-20'>
         {/* Bên trên */}
         <div className='flex w-full items-center justify-between mb-5'>
-            <h2 className='text-white text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold'>{type}</h2>
+            <h2 className='text-white text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold'>{title}</h2>
             <button 
                 className='rounded-full px-4 xl:px-7 xl:py-1 border-2 border-white text-white text-sm lg:text-lg xl:text-xl font-semibold'
                 onClick={redirect}
@@ -46,7 +47,7 @@ const Slider = ({type, movies, route}) => {
             {
                 movies?.length > 0 && movies.map((movie) => (
                     <SwiperSlide key={movie.id}>
-                        <SliderItem poster_path={movie.poster_path} title={movie.title} id={movie.id} route={route}/>
+                        <SliderItem movie={movie} type={type}/>
                     </SwiperSlide>
                 ))
             }

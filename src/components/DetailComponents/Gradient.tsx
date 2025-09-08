@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
 import { useParams } from 'react-router-dom'
-import { useData } from '../context/Context'
-const Gradient = ({location}) => {
-  const { type } = useParams(); 
-  const [keyword, setKeyword] = useState('')
+import { useData } from '../../context/Context'
+import { gradientProps } from '../../interface/interfaces'
+
+const Gradient:React.FC<gradientProps> = ({location}) => {
+  const { type } = useParams<{ type: string }>()
+  const [keyword, setKeyword] = useState<string>('')
   const { handleSearch } = useData()
   return (
     <div className='h-fit pb-20 bg-gradient-to-t from-black via-gray-800 to-[rgb(132, 245, 143)] flex flex-col'>

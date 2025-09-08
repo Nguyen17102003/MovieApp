@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
+import { movie } from '../interface/interfaces'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css'
-import Banner from '../components/Banner'
-import Slider from '../components/Slider'
+import Banner from '../components/HomeComponents/Banner'
+import Slider from '../components/UtilityComponents/Slider'
 import { useData } from '../context/Context'
 
 const Home = () => {
@@ -21,17 +22,17 @@ const Home = () => {
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         pagination={false}>
           {
-            trendingMovies.data?.results.map((movie, index) => (
+            trendingMovies.data?.results.map((movie: movie, index:number) => (
               <SwiperSlide key={movie.id}>
-                <Banner {...movie} isActive={index === activeIndex}/>
+                <Banner movie={movie} isActive={index === activeIndex}/>
               </SwiperSlide>
             ))
           }
         </Swiper>
-        <Slider type={'Trending Movies'} route={'movie'} movies={trendingMovies.data?.results || []}/>
-        <Slider type={'Top Rated Movies'} route={'movie'} movies={topratedMovies.data?.results || []}/>
-        <Slider type={'Trending TV'} route={'tv'} movies={trendingTV.data?.results || []}/>
-        <Slider type={'Top Rated TV'} route={'tv'} movies={topratedTV.data?.results || []}/>
+        <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []}/>
+        <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []}/>
+        <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []}/>
+        <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []}/>
       </main>
     </>
   )

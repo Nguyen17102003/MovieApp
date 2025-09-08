@@ -1,6 +1,6 @@
 import React from 'react'
-
-const Video = ({name, videoKey}) => {
+import { videoProps } from '../../interface/interfaces'
+const Video:React.FC<videoProps> = ({id, name, videoKey}) => {
   return (
     <div className='w-full min-w-screen h-screen bg-black px-5 xl:px-20 xl:py-30 pb-30'>
         <h1 className='text-white lg:text-2xl xl:text-4xl font-semibold py-10'>{name}</h1>

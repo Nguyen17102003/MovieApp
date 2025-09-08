@@ -1,13 +1,16 @@
 import React from 'react'
-import SliderItem from './SliderItem'
+import { listProps } from '../../interface/interfaces'
+import SliderItem from '../../components/UtilityComponents/SliderItem'
 
-const List = ({movies, fetchFn}) => {
+const List:React.FC<listProps> = ({movies, type, fetchFn}) => {
   return (
     <div className='w-full flex items-center justify-center flex-col bg-black pb-10'>
       <div className='bg-black grid xl:grid-cols-6 lg:grid-cols-4 grid-cols-2 gap-x-5 gap-y-15 px-8 pb-5'>
         {
             movies?.length > 0 ? movies.map((movie) => (
-                <SliderItem key={movie.id} {...movie}/>
+                <div key={movie.id}>
+                <SliderItem type={type} movie={movie}/>
+                </div>
             )) : (<>
                 <h1 className='xl:text-3xl py-10 px-10'>Loading...</h1>
             </>)

@@ -2,8 +2,9 @@ import React, {useState, useEffect} from 'react'
 import { useLocation } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false)
+const Navbar:React.FC = () => {
+  // State quản lý thanh navbar có đổi màu khi cuộn hay không
+  const [isScrolled, setIsScrolled] = useState<boolean>(false)
   let {pathname} = useLocation();
   useEffect(() => {
     const handleScroll = () => {
@@ -39,7 +40,7 @@ const Navbar = () => {
                 <h1 className='text-white flex text-nowrap group-hover:text-red-500 font-semibold text-xl xl:text-3xl mb-2'>Movies</h1>
                 <hr className={`absolute left-0 w-full bottom-0 h-[3px] border-none bg-red-500 transition-all duration-300 ease-out 
                 origin-center scale-x-0 group-hover:scale-x-100
-                ${pathname.includes('/movie') ? 'scale-x-100' : ''}`}/>
+                ${pathname.includes('/movie') ? 'scale-x-100' : ''}`}/> 
             </Link>
 
             {/* TV */}
