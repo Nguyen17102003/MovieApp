@@ -1,0 +1,54 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+const Banner = ({backdrop_path, title, overview, poster_path, id, isActive}) => {
+
+  return (
+    <div key={isActive ? `active-${id}` : `inactive-${id}`} 
+    className='bg-no-repeat bg-center xl:bg-top bg-cover w-full h-full relative z-50
+    before:bg-[rgba(255, 255, 255, 0.4)] before:w-full before:h-full before:z-0 before:backdrop-brightness-45 before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0
+    after:z-10 after:w-full after:h-1/4 after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent'
+    style={{
+    backgroundImage: backdrop_path
+      ? `url(https://image.tmdb.org/t/p/original/${backdrop_path})`
+      : "none"
+    }}>  
+        <div className='z-20 px-8 pt-5 lg:px-10 lg:pt-10 xl:px-20 xl:pt-40 flex gap-20'>
+            {/* Bên trái */}
+            <div className='z-20 flex flex-col w-full items-baseline gap-5 xl:py-10 xl:gap-15 xl:basis-2/3'>
+                {/* Tiêu đề */}
+                <h1 className={`text-white py-6 xl:py-0 text-4xl font-bold d:text-6xl xl:text-9xl xl:font-bold ${isActive ? 'textdrop-delay-300' : ''}`}>
+                  {title}
+                </h1>
+                {/* Giới thiệu */}
+                <h1 className={`text-white text-xs md:text-xl xl:text-2xl font-semibold text-justify ${isActive ? 'textdrop-delay-500' : ''}`}>
+                  {overview}
+                </h1>
+                {/* Nút bấm */}
+                <div className={`flex items-center py-5 gap-5 ${isActive ? 'textdrop-delay-700' : ''}`}>
+                    <Link 
+                    className='w-fit bg-red-600 text-nowrap py-2 px-5 md:py-3 md:px-10 rounded-full custom-shadow font-semibold text-white text-sm md:text-xl xl:text-3xl text-center'
+                    to={`/movie/${id}`}
+                    >Watch now
+                    </Link>
+                    <Link 
+                    className='w-fit text-nowrap py-2 md:py-3 px-5 md:px-10 rounded-full border-2 font-semibold border-white text-white text-sm md:text-xl xl:text-3xl text-center hover:bg-white hover:text-gray-500'
+                    to={`/movie/${id}`}
+                    >
+                    Watch trailer
+                    </Link>
+                </div>
+            </div>
+
+            {/* Bên phải */}
+            <div className={`hidden xl:block xl:basis-1/3 h-4/5 ${isActive ? 'grow' : ''}`}>
+              <img src={`https://image.tmdb.org/t/p/original/${poster_path}`} alt={`${title || 'Poster'}`} className='w-full h-full object-cover rounded-3xl aspect-auto'/>
+            </div>
+           
+        </div>
+       
+    </div>
+  )
+}
+
+export default Banner

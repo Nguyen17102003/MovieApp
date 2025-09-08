@@ -1,0 +1,41 @@
+import React from 'react'
+
+const DetailBanner = ({backdrop_path, poster_path, title, name, genres, overview, casts}) => {
+  return (
+    <div className='relative min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center'
+    style={{
+    backgroundImage: backdrop_path
+      ? `url(https://image.tmdb.org/t/p/original/${backdrop_path})`
+      : "none"
+    }}>
+        {/* Poster phim bên trái */}
+        <div className='hidden w-full md:basis-1/3 z-30 md:px-2 xl:px-4 md:flex'>
+            <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt={title} className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
+        </div>
+        
+        {/* Thông tin phim bên phải */}
+        <div className='flex flex-col justify-baseline md:basis-2/3 gap-7 md:gap-5 lg:gap-10 z-30'>
+            <h1 className='text-2xl md:text-4xl xl:text-8xl text-white font-bold'>{title || name}</h1>
+            <div className='flex gap-2 py-5 md:py-0'>
+                {genres && genres.map((genre) => (
+                    <button key={genre.id} className='w-fit text-xs md:text-sm lg:text-base px-3 lg:px-5 py-0.5 rounded-full border-white border-2 lg:border-3 font-medium lg:font-bold text-white bg-black'>{genre.name}</button>
+                ))}
+            </div>
+            <div className='text-white text-xs md:text-sm lg:text-xl font-normal lg:font-medium text-justify'>
+                {overview}
+            </div>
+            <h2 className='text-white font-semibold lg:text-2xl'>Casts</h2>
+            <div className='md:flex lg:gap-5 gap-3 lg:pb-15 grid grid-cols-3' >
+                {casts && casts.map((cast, i) => (
+                    <div key={i} className='md:w-full xl:w-25'>
+                        <img src={`https://image.tmdb.org/t/p/original/${cast.profile_path}`} className='rounded-xl md:rounded-2xl lg:h-40 lg:w-full aspect-auto'/>
+                        <span className='text-white text-xs md:text-sm lg:text-base text-wrap max-w-full'>{cast.name}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+  )
+}
+
+export default DetailBanner
