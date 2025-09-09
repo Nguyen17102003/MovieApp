@@ -9,7 +9,8 @@ const Pages:React.FC<pagesProps> = ({location, type}) => {
   const { 
     allMovies, allTVSeries, 
     loadMore, resetMovies, resetTV,
-    searchQuery, searchType, setSearchType } = useData()
+    searchQuery, searchType, 
+    setSearchType, searchTerm} = useData()
   useEffect(() => {
     setSearchType(type);
     resetMovies()
@@ -18,9 +19,7 @@ const Pages:React.FC<pagesProps> = ({location, type}) => {
 
   const isSearching = searchQuery.data && searchType === type
 
-  const key = `All ${type === 'movie' ? type + 's' : 'TV Series'}`
-
-  
+  const key = isSearching ? `search-${type}-${searchTerm}` : `All ${type === 'movie' ? type + 's' : 'TV Series'}`
 
   const movies = isSearching 
     ? searchQuery.data?.results || []

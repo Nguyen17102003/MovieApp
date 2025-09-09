@@ -6,6 +6,8 @@ import { queryClient } from "./QueryClient";
 interface State {
   allMoviesPage: number;
   allTVPage: number;
+  searchMoviesPage: number;
+  searchTVPage: number;
 }
 
 // Kiểu dữ liệu cho action của reducer
@@ -13,12 +15,16 @@ type Action =
   | { type: "NEXT_MOVIE_PAGE" }
   | { type: "RESET_MOVIE_PAGE" }
   | { type: "NEXT_TV_PAGE" }
-  | { type: "RESET_TV_PAGE" };
+  | { type: "RESET_TV_PAGE" }
+  | { type: "RESET_SEARCH_MOVIE"}
+  | { type: "RESET_SEARCH_TV" }
 
 // Các giá trị mặc định lưu số trang đã render
 const initialState: State = {
   allMoviesPage: 1,
   allTVPage: 1,
+  searchMoviesPage: 1,
+  searchTVPage: 1
 };
 
 // Hàm reducer xử lý giá trị số trang
@@ -45,6 +51,7 @@ interface ContextType {
   topratedTV: UseQueryResult<any>;
   allMovies: UseQueryResult<any>;
   allTVSeries: UseQueryResult<any>;
+  searchTerm: string | null,
   loadMore: (type: string, key: string) => Promise<void>;
   resetMovies: () => void;
   resetTV: () => void;
@@ -135,7 +142,7 @@ const Provider = ({ children }: ProviderProps) => {
 
   // Hàm tìm kiếm
   const searchQuery = useQuery({
-    queryKey: ["search", searchType, searchTerm],
+    queryKey: [`search-${searchType}-${searchTerm}`],
     queryFn: () =>
       fetch(
         `${API_URL}/search/${searchType}?query=${encodeURIComponent(
@@ -156,6 +163,15 @@ const Provider = ({ children }: ProviderProps) => {
       type === "movie" ? state.allMoviesPage + 1 : state.allTVPage + 1;  
     // Nếu thể loại là movie thì số trang movie + 1, còn không số trang tv + 1
 
+    if(searchTerm) {
+      const res = await fetch(`${API_URL}/search/${type}?query=${searchTerm}&page=${page}`, options);
+      const newData = await res.json();
+      queryClient.setQueryData([key], (oldData: any) => {
+      if (!oldData) return newData; // Nếu chưa có dữ liệu trong cache, gán dữ liệu mới
+      return {...newData, results: [...oldData.results, ...newData.results]} // Thêm dữ liệu trang mới vào cache
+      })
+      return
+    }
       const res = await fetch(`${API_URL}/${type}/popular?page=${page}`, options);
       const newData = await res.json();
       queryClient.setQueryData([key], (oldData: any) => {
@@ -174,12 +190,16 @@ const Provider = ({ children }: ProviderProps) => {
 
   const resetMovies = () => {
     dispatch({ type: "RESET_MOVIE_PAGE" });
-    queryClient.removeQueries({ queryKey: ["All movies"] }); // Xóa cache 
+    dispatch({ type: "RESET_SEARCH_MOVIE"})
+    queryClient.removeQueries({ queryKey: ["All movies"] });
+    queryClient.removeQueries({ queryKey: [`search-${searchType}-${searchTerm}`]}) // Xóa cache 
   };
 
   const resetTV = () => {
     dispatch({ type: "RESET_TV_PAGE" });
-    queryClient.removeQueries({ queryKey: ["All TV Series"] }); // Xóa cache
+    dispatch({ type: "RESET_SEARCH_TV"})
+    queryClient.removeQueries({ queryKey: ["All TV Series"] })
+    queryClient.removeQueries({ queryKey: [`search-${searchType}-${searchTerm}`]}) ; // Xóa cache
   };
 
   // Promise từ các lần fetch trên 
@@ -195,7 +215,7 @@ const Provider = ({ children }: ProviderProps) => {
     trendingMovies, trendingTV, 
     topratedMovies, topratedTV,
     allMovies, allTVSeries,
-    searchQuery, searchType,
+    searchQuery, searchType, searchTerm,
     loadMore, resetMovies,
     resetTV, handleSearch,
     setSearchType
