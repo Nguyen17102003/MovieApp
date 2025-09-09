@@ -7,7 +7,7 @@ const Banner:React.FC<bannerProps> = ({movie, isActive}) => {
 
   return (
     <div key={isActive ? `active-${movie.id}` : `inactive-${movie.id}`} 
-    className='bg-no-repeat bg-center w-screen min-w-sreen min-h-screen h-screen xl:bg-top bg-cover relative z-50 md:px-50
+    className='bg-no-repeat bg-center w-screen min-w-sreen min-h-screen h-screen xl:bg-top bg-cover relative z-50 md:px-12 md:py-32
     before:bg-[rgba(255, 255, 255, 0.4)] before:w-full before:h-full before:z-0 before:backdrop-brightness-45 before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0
     after:z-10 after:w-full after:h-1/4 after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent'
     style={{
