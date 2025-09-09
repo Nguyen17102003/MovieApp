@@ -147,7 +147,7 @@ const Provider = ({ children }: ProviderProps) => {
   });
 
   const handleSearch = (keyword: string | null) => {
-    setSearchTerm(keyword); // Công nhận chuỗi người dùng nhập vào là chuỗi gửi đi
+    setSearchTerm(keyword)
   };
 
   // Hàm render các trang kế tiếp

@@ -28,13 +28,13 @@ const Gradient:React.FC<gradientProps> = ({location}) => {
                 onChange={(e) => setKeyword(e.target.value)}
                 onKeyDown={(e) => {
                   if(e.key === 'Enter')
-                    handleSearch(keyword)
+                    window.location.search = `query=${keyword}`
                     return
                 }}
                 className='pl-5 xl:pr-30 xl:pl-5 outline-none h-full flex-6/10 font-medium placeholder-gray-500 leading-3'/>
                 <button 
                 className='h-full text-center flex items-center rounded-full flex-4/10 px-10 bg-red-600  font-semibold custom-shadow'
-                onClick={() => handleSearch(keyword)
+                onClick={() => window.location.search = `query=${keyword}`
                 }
                 >Search</button>
             </div>
