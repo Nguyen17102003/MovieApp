@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react'
-import { useLocation } from 'react-router-dom'
+import React, {useEffect} from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useData } from '../../context/Context'
 import { gradientProps } from '../../interface/interfaces'
 
 const Gradient:React.FC<gradientProps> = ({location}) => {
-  const [keyword, setKeyword] = useState<string>('')
+  const navigate = useNavigate()
   const getQuery = () => (new URLSearchParams(useLocation().search))
   const query = getQuery()
   const searchTerm = query.get('query')
@@ -13,7 +13,7 @@ const Gradient:React.FC<gradientProps> = ({location}) => {
       handleSearch(searchTerm)
     }
   }, [])
-  const { handleSearch } = useData()
+  const { keyword, setKeyword, handleSearch } = useData()
   return (
     <div className='h-fit pb-20 bg-gradient-to-t from-black via-gray-800 to-[rgb(132, 245, 143)] flex flex-col'>
         <div className="w-full flex items-center justify-center pt-30 pb-15">
@@ -27,9 +27,11 @@ const Gradient:React.FC<gradientProps> = ({location}) => {
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
                 onKeyDown={(e) => {
-                  if(e.key === 'Enter')
-                    window.location.search = `query=${keyword}`
-                    return
+                  if(e.key === 'Enter'){
+                    navigate(`?query=${encodeURIComponent(keyword)}`)
+                    e.currentTarget.blur()
+                    handleSearch(keyword)
+                  }
                 }}
                 className='pl-5 xl:pr-30 xl:pl-5 outline-none h-full flex-6/10 font-medium placeholder-gray-500 leading-3'/>
                 <button 

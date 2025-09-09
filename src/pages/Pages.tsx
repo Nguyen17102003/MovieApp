@@ -9,30 +9,33 @@ const Pages:React.FC<pagesProps> = ({location, type}) => {
   const { 
     allMovies, allTVSeries, 
     loadMore, resetMovies, resetTV,
-    searchQuery, searchType, 
-    setSearchType, searchTerm} = useData()
+    searchQuery, 
+    setSearchType,
+    searchTerm} = useData()
   useEffect(() => {
     setSearchType(type);
     resetMovies()
     resetTV()
   }, [])
 
-  const isSearching = searchQuery.data && searchType === type
+  const key = searchQuery.data ? `search-${type}-${searchTerm}` : `All ${type === 'movie' ? type + 's' : 'TV Series'}`
 
-  const key = isSearching ? `search-${type}-${searchTerm}` : `All ${type === 'movie' ? type + 's' : 'TV Series'}`
+  const movies = () => {
+  if (searchQuery.data && searchQuery.data.results?.length > 0) {
+    return searchQuery.data.results
+  }
+  return type === 'movie'
+    ? (allMovies.data?.results || [])
+    : (allTVSeries.data?.results || [])
+  }
 
-  const movies = isSearching 
-    ? searchQuery.data?.results || []
-    : (type === 'movie' ? 
-        (allMovies.data?.results || []) :
-        (allTVSeries.data?.results || []))
-  
+
   return (
     <>
       <Gradient location={location}/>
       <List
         type={type}
-        movies={movies} 
+        movies={movies()} 
         fetchFn={() => loadMore(type, key)}
       />
       <Outlet/>
