@@ -48,9 +48,10 @@ interface ContextType {
   loadMore: (type: string, key: string) => Promise<void>;
   resetMovies: () => void;
   resetTV: () => void;
-  handleSearch: (keyword: string, type?: string) => void;
+  handleSearch: (keyword: string | null) => void;
+  setSearchType: React.Dispatch<React.SetStateAction<string | null>>;
   searchQuery: UseQueryResult<any>;
-  searchType: string;
+  searchType: string | null;
 }
 
 const AppContext = createContext<ContextType | undefined>(undefined);
@@ -63,8 +64,8 @@ interface ProviderProps {
 // Provider cung cấp data cho các component 
 const Provider = ({ children }: ProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [searchTerm, setSearchTerm] = useState<string>(""); //  Chuỗi tìm kiếm được gửi đi
-  const [searchType, setSearchType] = useState<string>("movie"); // Chuỗi người dùng nhập tạm thời trên thanh input
+  const [searchTerm, setSearchTerm] = useState<string | null>(""); //  Chuỗi tìm kiếm được gửi đi
+  const [searchType, setSearchType] = useState<string | null>("movie"); // Chuỗi người dùng nhập tạm thời trên thanh input
 
   const API_URL = import.meta.env.VITE_API_URL as string; // API trang web
   const API_KEY = import.meta.env.VITE_API_KEY as string; // API key
@@ -138,16 +139,15 @@ const Provider = ({ children }: ProviderProps) => {
     queryFn: () =>
       fetch(
         `${API_URL}/search/${searchType}?query=${encodeURIComponent(
-          searchTerm
+          searchTerm || ""
         )}`,
         options
       ).then((res) => res.json()),
-    enabled: !!searchTerm, // Chỉ thực hiện search khi chuỗi người nhập tạm thời được công nhận gửi đi
+    enabled: !!searchTerm && !!searchType, // Chỉ thực hiện search khi chuỗi người nhập tạm thời được công nhận gửi đi
   });
 
-  const handleSearch = (keyword: string, type: string = "movie") => {
+  const handleSearch = (keyword: string | null) => {
     setSearchTerm(keyword); // Công nhận chuỗi người dùng nhập vào là chuỗi gửi đi
-    setSearchType(type); // Tên thể loại (movie, tv)
   };
 
   // Hàm render các trang kế tiếp
@@ -156,16 +156,13 @@ const Provider = ({ children }: ProviderProps) => {
       type === "movie" ? state.allMoviesPage + 1 : state.allTVPage + 1;  
     // Nếu thể loại là movie thì số trang movie + 1, còn không số trang tv + 1
 
-    const res = await fetch(`${API_URL}/${type}/popular?page=${page}`, options);
-    const newData = await res.json();
-
-    queryClient.setQueryData([key], (oldData: any) => {
+      const res = await fetch(`${API_URL}/${type}/popular?page=${page}`, options);
+      const newData = await res.json();
+      queryClient.setQueryData([key], (oldData: any) => {
       if (!oldData) return newData; // Nếu chưa có dữ liệu trong cache, gán dữ liệu mới
-      return {
-        ...newData,
-        results: [...oldData.results, ...newData.results],
-      }; // Thêm dữ liệu trang mới vào cache
-    });
+      return {...newData, results: [...oldData.results, ...newData.results]} // Thêm dữ liệu trang mới vào cache
+      }
+    )
 
     // update reducer state
     if (type === "movie") {
@@ -201,6 +198,7 @@ const Provider = ({ children }: ProviderProps) => {
     searchQuery, searchType,
     loadMore, resetMovies,
     resetTV, handleSearch,
+    setSearchType
   };
 
   return (

@@ -38,7 +38,7 @@ export interface detailBannerProps {
 }
 
 export interface gradientProps {
-    location: string
+    location: string,
 }
 
 export interface listProps {
