@@ -30,7 +30,7 @@ const Navbar:React.FC = () => {
             {/* Trang chủ */}
             <Link to='/' className='relative mx-4 2xl:mx-[1vw] pb-1 group'>
                 <h1 className='text-white flex text-nowrap group-hover:text-red-500 font-semibold text-xl xl:text-3xl 2xl:text-[4vh] mb-2'>Home</h1>
-                <hr className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[10px] border-none bg-red-500 transition-all duration-300 ease-out 
+                <hr className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
                 origin-center scale-x-0 group-hover:scale-x-100
                 ${!pathname.includes('/movie') && !pathname.includes('/tv') ? 'scale-x-100' : 'scale-x-0'}`}/>
             </Link>
@@ -38,7 +38,7 @@ const Navbar:React.FC = () => {
             {/* Movie */}
             <Link to='/movie' className='relative mx-4 2xl:mx-[1vw] pb-1 group'>
                 <h1 className='text-white flex text-nowrap group-hover:text-red-500 font-semibold text-xl xl:text-3xl 2xl:text-[4vh] mb-2'>Movies</h1>
-                <hr className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[10px] border-none bg-red-500 transition-all duration-300 ease-out 
+                <hr className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
                 origin-center scale-x-0 group-hover:scale-x-100
                 ${pathname.includes('/movie') ? 'scale-x-100' : ''}`}/> 
             </Link>
@@ -46,7 +46,7 @@ const Navbar:React.FC = () => {
             {/* TV */}
             <Link to='/tv' className='relative mx-4 2xl:mx-[1vw] pb-1 group'>
                 <h1 className='text-white flex text-nowrap group-hover:text-red-500 font-semibold text-xl xl:text-3xl 2xl:text-[4vh] mb-2'>TV Series</h1>
-                <hr className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[10px] border-none bg-red-500 transition-all duration-300 ease-out 
+                <hr className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
                 origin-center scale-x-0 group-hover:scale-x-100
                 ${pathname.includes('/tv') ? 'scale-x-100' : ''}`}/>
             </Link>
