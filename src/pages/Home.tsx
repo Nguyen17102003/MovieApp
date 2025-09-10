@@ -17,7 +17,7 @@ const Home = () => {
     <>
       <main>
         <Swiper 
-        className='h-[28rem] xl:h-[68rem] 2xl:h-[90rem]'
+        className='h-[28rem] xl:h-[68rem] 2xl:h-[120vh]'
         slidesPerView={1}
         onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
         pagination={false}>

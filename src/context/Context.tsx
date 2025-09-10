@@ -54,13 +54,11 @@ interface ContextType {
   searchTerm: string | null,
   searchQuery: UseQueryResult<any>;
   searchType: string | null;
-  keyword: string;
   loadMore: (type: string, key: string) => Promise<void>;
   resetMovies: () => void;
   resetTV: () => void;
   handleSearch: (keyword: string | null) => void;
   setSearchType: React.Dispatch<React.SetStateAction<string | null>>;
-  setKeyword: React.Dispatch<React.SetStateAction<string>>
 }
 
 const AppContext = createContext<ContextType | undefined>(undefined);
@@ -73,7 +71,6 @@ interface ProviderProps {
 // Provider cung cấp data cho các component 
 const Provider = ({ children }: ProviderProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [keyword, setKeyword] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string | null>(""); //  Chuỗi tìm kiếm được gửi đi
   const [searchType, setSearchType] = useState<string | null>("movie"); // Chuỗi người dùng nhập tạm thời trên thanh input
 
@@ -218,10 +215,10 @@ const Provider = ({ children }: ProviderProps) => {
     trendingMovies, trendingTV, 
     topratedMovies, topratedTV,
     allMovies, allTVSeries,
-    searchQuery, searchType, searchTerm, keyword,
+    searchQuery, searchType, searchTerm,
     loadMore, resetMovies,
     resetTV, handleSearch,
-    setSearchType, setKeyword
+    setSearchType
   };
 
   return (

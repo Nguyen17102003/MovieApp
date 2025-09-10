@@ -16,29 +16,29 @@ const Slider:React.FC<sliderProps> = ({title='', type, movies}) => {
     else window.location.href = '/tv'
   }
   return (
-    <div className='w-full bg-black px-3 xl:px-8 py-0 pb-5 xl:py-20'>
+    <div className='w-full bg-black px-3 xl:px-8 py-0 pb-5 xl:py-20 2xl:px-[3vw]'>
         {/* Bên trên */}
-        <div className='flex w-full items-center justify-between mb-5'>
-            <h2 className='text-white text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold'>{title}</h2>
+        <div className='flex w-full items-center justify-between mb-5 2xl:mb-[3vh]'>
+            <h2 className='text-white text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] font-semibold appear'>{title}</h2>
             <button 
-                className='rounded-full px-4 xl:px-7 xl:py-1 border-2 border-white text-white text-sm lg:text-lg xl:text-xl font-semibold'
+                className='hover:text-gray-500 hover:bg-white rounded-full px-4 xl:px-7 xl:py-1 2xl:px-10 border-2 border-white text-white text-sm lg:text-lg xl:text-xl 2xl:text-[3vh] font-semibold appear'
                 onClick={redirect}
             >View more</button>
         </div>
 
         {/* Slideshow */}
         <Swiper 
-            className='h-fit pb-0'
+            className='h-fit pb-0 shrink'
             spaceBetween={30} 
             breakpoints={{
                 320: {
-                    slidesPerView: 2
+                    slidesPerView: 2,
                 },
                 768: {
                     slidesPerView: 4
                 },
                 1024: {
-                    slidesPerView: 6
+                    slidesPerView: 6,
                 },
             }}
             modules={[Navigation, Pagination, Autoplay]}
@@ -51,6 +51,7 @@ const Slider:React.FC<sliderProps> = ({title='', type, movies}) => {
                     </SwiperSlide>
                 ))
             }
+            
         </Swiper>
     </div>
   )

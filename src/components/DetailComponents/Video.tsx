@@ -2,12 +2,13 @@ import React from 'react'
 import { videoProps } from '../../interface/interfaces'
 const Video:React.FC<videoProps> = ({id, name, videoKey}) => {
   return (
-    <div className='w-full min-w-screen h-screen bg-black px-5 xl:px-20 xl:py-30 pb-30'>
-        <h1 className='text-white lg:text-2xl xl:text-4xl font-semibold py-10'>{name}</h1>
+    <div className='w-full min-w-screen h-screen 2xl:h-[120vh] bg-black px-5 xl:px-20 xl:py-30 2xl:py-[10vh] 2xl:px-[5vw] 2xl:pb-[10vh] pb-30'>
+        <h1 className='text-white lg:text-2xl xl:text-4xl 2xl:text-[5vh] font-semibold py-10 2xl:py-40'>{name}</h1>
         <iframe 
+        loading='lazy'
         src={`https://www.youtube.com/embed/${videoKey}?rel=0`}
         title={name}
-        className='w-full h-full aspect-video'
+        className='w-full 2xl:w-[90vw] h-full aspect-video'
         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
         allowFullScreen/>
     </div>

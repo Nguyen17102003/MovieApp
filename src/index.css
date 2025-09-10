@@ -31,15 +31,17 @@ button {
 };
 .textdrop {
     animation: textdrop 500ms ease-in-out forwards;
+    animation-range: entry 0;
+    animation-timeline: view();
 }
 .textdrop-delay-300 { 
-    animation: textdrop 500ms ease-in-out 300ms forwards
+    animation: textdrop 500ms ease-in-out 100ms forwards;
 };
 .textdrop-delay-500 {
-    animation: textdrop 500ms ease-in-out 500ms forwards
+    animation: textdrop 500ms ease-in-out 200ms forwards;
 }
 .textdrop-delay-700 {
-    animation: textdrop 500ms ease-in-out 700ms forwards
+    animation: textdrop 500ms ease-in-out 300ms forwards;
 }
 @keyframes grow {
     0% {
@@ -63,4 +65,37 @@ button {
     }
 }
 
+.appear {
+    animation: appear 500ms ease-in-out forwards;
+    animation-range: entry 0.1;
+    animation-timeline: view();
+    }
+    @keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+.shrink {
+    animation: shrink 500ms ease-in-out forwards;
+    animation-range: entry 0;
+    animation-timeline: view();
+    }
+    @keyframes shrink {
+    from {
+        opacity: 0;
+        scale: 0.8
+    }
+    to {
+        opacity: 1;
+        scale: 1
+    }
+}
 
