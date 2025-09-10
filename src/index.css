@@ -65,23 +65,6 @@ button {
     }
 }
 
-.appear {
-    animation: appear 500ms ease-in-out forwards;
-    animation-range: entry 0.1;
-    animation-timeline: view();
-    }
-    @keyframes appear {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
 
 .shrink {
     animation: shrink 500ms ease-in-out forwards;

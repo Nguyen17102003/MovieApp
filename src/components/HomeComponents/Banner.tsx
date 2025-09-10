@@ -17,7 +17,7 @@ const Banner:React.FC<bannerProps> = ({movie, isActive}) => {
     }}>  
         <div className='z-20 px-8 lg:px-10 lg:pt-10 xl:pt-40 flex gap-20'>
             {/* Bên trái */}
-            <div className='z-20 flex flex-col w-full items-baseline gap-5 xl:py-10 xl:gap-15 2xl:gap-30 xl:basis-2/3'>
+            <div className='z-20 flex flex-col w-full items-baseline gap-5 xl:py-10 xl:gap-15 xl:basis-2/3'>
                 {/* Tiêu đề */}
                 <h1 className={`text-white py-6 xl:py-0 text-4xl font-bold md:text-6xl xl:text-8xl 2xl:text-[10vh] xl:font-bold ${isActive ? 'textdrop-delay-300' : ''}`}>
                   {movie.title}
