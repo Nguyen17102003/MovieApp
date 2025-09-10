@@ -9,7 +9,7 @@ const Banner:React.FC<bannerProps> = ({movie, isActive}) => {
     <div key={isActive ? `active-${movie.id}` : `inactive-${movie.id}`} 
     className='bg-no-repeat bg-center w-screen min-w-sreen h-full xl:bg-top bg-cover relative z-50 md:px-12 md:pt-5 2xl:px-[5vw] 2xl:pt-[10vh]
     before:bg-[rgba(255, 255, 255, 0.4)] before:w-full before:h-full before:z-0 before:backdrop-brightness-45 before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0
-    after:z-10 after:w-full after:h-1/4 after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent'
+    after:z-10 after:w-full after:h-full after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent'
     style={{
     backgroundImage: movie.backdrop_path
       ? `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`
