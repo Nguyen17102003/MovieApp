@@ -16,7 +16,7 @@ const Gradient:React.FC<gradientProps> = ({location}) => {
   }, [])
   const { handleSearch } = useData()
   return (
-    <div className='h-fit 2xl:h-[50vh] pb-10 bg-gradient-to-t from-black 2xl:from-gray-950 via-gray-800 to-[rgb(132, 245, 143)] flex flex-col'>
+    <div className='h-fit 2xl:h-[50vh] pb-10 bg-gradient-to-t from-black via-gray-800 to-[rgb(132, 245, 143)] flex flex-col'>
         <div className="w-full flex items-center justify-center pt-30 pb-15 2xl:pt-[15vh]">
             <h1 className='xl:text-5xl 2xl:text-[10vh] text-white font-bold'>{location}</h1>
         </div>

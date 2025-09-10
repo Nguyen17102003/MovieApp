@@ -38,6 +38,10 @@ function reducer(state: State, action: Action): State {
       return { ...state, allTVPage: state.allTVPage + 1 };
     case "RESET_TV_PAGE":
       return { ...state, allTVPage: 1 };
+    case "RESET_SEARCH_MOVIE":
+      return {...state, searchMoviesPage: 1};
+    case "RESET_SEARCH_TV":
+      return {...state, searchTVPage: 1};
     default:
       return state;
   }
