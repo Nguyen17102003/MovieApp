@@ -8,17 +8,13 @@ import { pagesProps } from '../interface/interfaces'
 const Pages:React.FC<pagesProps> = ({location, type}) => {
   const { 
     allMovies, allTVSeries, 
-    loadMore, resetMovies, resetTV,
+    loadMore, reset,
     searchQuery, searchType,
-    setSearchType,
-    searchTerm} = useData()
+    setSearchType} = useData()
   useEffect(() => {
     setSearchType(type);
-    resetMovies()
-    resetTV()
+    reset()
   }, [location])
-
-  const key = searchQuery.data ? `search-${type}-${searchTerm}` : `All ${type === 'movie' ? type + 's' : 'TV Series'}`
 
   const movies = () => {
   if (searchQuery.data 
@@ -38,7 +34,7 @@ const Pages:React.FC<pagesProps> = ({location, type}) => {
       <List
         type={type}
         movies={movies()} 
-        fetchFn={() => loadMore(type, key)}
+        fetchFn={() => loadMore(type)}
       />
       <Outlet/>
     </>

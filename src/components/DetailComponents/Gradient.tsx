@@ -37,7 +37,10 @@ const Gradient:React.FC<gradientProps> = ({location}) => {
                 className='pl-5 2xl:pl-10 xl:pl-5 flex-6/10 outline-none h-full font-medium placeholder-gray-500 leading-3'/>
                 <button 
                 className='h-full text-center flex items-center flex-4/10 rounded-full 2xl:px-[2vw] px-8 bg-red-600  font-semibold custom-shadow'
-                onClick={() => window.location.search = `query=${inputRef.current?.value?? ""}`
+                onClick={() => {
+                  const value = inputRef.current?.value?? ""
+                  window.location.search = `query=${encodeURIComponent(value)}`
+                  handleSearch(value)}
                 }
                 >Search</button>
             </div>

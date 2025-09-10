@@ -12,7 +12,11 @@ import { useData } from '../context/Context'
 const Home = () => {
   const [activeIndex, setActiveIndex] = useState(0); // Index của slide hiện tại 
   const { trendingMovies, trendingTV, 
-        topratedMovies, topratedTV } = useData() 
+        topratedMovies, topratedTV, reset, setSearchTerm } = useData() 
+  useEffect(() => {
+    setSearchTerm(null)
+    reset()
+  }, [])
   return (
     <>
       <main>
