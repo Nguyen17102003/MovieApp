@@ -16,12 +16,14 @@ const Pages:React.FC<pagesProps> = ({location, type}) => {
     setSearchType(type);
     resetMovies()
     resetTV()
-  }, [location, type])
+  }, [location])
 
   const key = searchQuery.data ? `search-${type}-${searchTerm}` : `All ${type === 'movie' ? type + 's' : 'TV Series'}`
 
   const movies = () => {
-  if (searchQuery.data && searchQuery.data.results?.length > 0 && searchType === type) {
+  if (searchQuery.data 
+    && searchQuery.data.results?.length > 0 
+    && searchType === type) {
     return searchQuery.data.results
   }
   return type === 'movie'
