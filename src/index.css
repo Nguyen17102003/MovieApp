@@ -7,17 +7,27 @@
   font-display: swap;
   font-stretch: normal;
 }
-body {
-    font-family: "Space Grotesk", sans-serif;
-    overflow-x: hidden;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100%;
+  font-family: "Space Grotesk", sans-serif;
+  overflow-x: hidden;
 }
-
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+#root {
+    width: 100%;
+}
 .custom-shadow {
-    box-shadow: 0 0 10px 5px rgb(245, 116, 150);
+    box-shadow: 0 0 7px 5px rgb(158, 4, 45);
     
 }
 .custom-shadow:hover {
-    box-shadow: 0 0 10px 10px rgb(245, 116, 150);
+    box-shadow: 0 0 7px 5px rgb(248, 95, 136);
 }
 
 .shadow-top {

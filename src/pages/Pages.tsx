@@ -30,7 +30,7 @@ const Pages:FC<pagesProps> = ({location, type}) => {
 
 
   return (
-    <>
+    <div className='w-full'>
       <Gradient location={location} />
       <Suspense fallback={<div className="w-full h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
         <List
@@ -40,7 +40,7 @@ const Pages:FC<pagesProps> = ({location, type}) => {
       />
       </Suspense>
       <Outlet/>
-    </>
+    </div>
   )
 }
 

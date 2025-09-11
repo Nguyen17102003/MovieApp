@@ -14,18 +14,18 @@ const Footer:FC = () => {
       </Link>
       </div>
       {/* Phần bên dưới */}
-      <div className='grid gap-y-5 gap-x-3 2xl:gap-y-10 grid-cols-2  mx-20 sm:grid-cols-3 xl:mx-40'>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Home</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Contact us</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Terms of service</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">About us</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Live</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">FAQ</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Premium</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">You must watch</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Recent release</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Top IMDB</h2>
-          <h2 className="text-white font-semibold text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500 text-nowrap">Privacy policy</h2>
+      <div className='grid gap-x-2 gap-y-2 sm:gap-y-5 sm:gap-x-3 2xl:gap-y-10 grid-cols-1 min-[200px]:grid-cols-2 mx-[10vw] sm:mx-20 sm:grid-cols-2 md:grid-cols-3 xl:mx-40'>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Home</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Contact us</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Terms of service</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">About us</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Live</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">FAQ</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Premium</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">You must watch</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Recent release</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Top IMDB</h2>
+          <h2 className="text-white font-semibold text-[2vh] text-wrap sm:text-nowrap sm:text-sm md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] hover:text-red-500">Privacy policy</h2>
       </div>        
     </div>
   )

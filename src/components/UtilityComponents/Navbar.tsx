@@ -25,16 +25,16 @@ const Navbar:FC = () => {
         </NavLink>
 
         {/* Link trang web */}
-        <div className='flex xl:basis-1/4 border-white items-center py-3 2xl:py-[2vh]  bg-black justify-evenly fixed left-0 bottom-0 right-0 xl:py-0 xl:bg-transparent xl:relative xl:left-auto xl:right-auto xl:bottom-auto'>
+        <div className='flex flex-col min-[200px]:flex-row flex-1 md:basis-1/4 border-white items-center py-3 2xl:py-[2vh] bg-black justify-center items-center min-[200px]:justify-evenly fixed left-0 bottom-0 right-0 xl:py-0 xl:bg-transparent xl:relative xl:left-auto xl:right-auto xl:bottom-auto'>
             {/* Trang chủ */}
-            <NavLink to='/' className='relative mx-4 2xl:mx-[1vw] pb-1 group'>
+            <NavLink to='/' className='relative mx-4 2xl:mx-[1vw] py-1 group'>
             {({ isActive }) => (
               <>
-                <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-semibold text-xl xl:text-3xl 2xl:text-[4vh] mb-2">
+                <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-semibold text-[2vh] sm:text-xl xl:text-3xl 2xl:text-[4vh] mb-2">
                   Home
                 </h1>
                 <hr
-                    className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
+                    className={`absolute left-0 w-full bottom-0 min-[300px]:h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
                     origin-center scale-x-0 group-hover:scale-x-100
                     ${hydrated && isActive ? 'scale-x-100' : ''}`}
                 />
@@ -43,14 +43,14 @@ const Navbar:FC = () => {
             </NavLink>
 
             {/* Movie */}
-            <NavLink to='/movie' className='relative mx-4 2xl:mx-[1vw] pb-1 group'>
+            <NavLink to='/movie' className='relative mx-4 2xl:mx-[1vw] py-1 group'>
             {({ isActive }) => (
               <>
-                <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-semibold text-xl xl:text-3xl 2xl:text-[4vh] mb-2">
+                <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-semibold text-[2vh] sm:text-xl xl:text-3xl 2xl:text-[4vh] mb-2">
                   Movies
                 </h1>
                 <hr
-                className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
+                className={`absolute left-0 w-full bottom-0 min-[300px]:h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
                 origin-center scale-x-0 group-hover:scale-x-100
                 ${isActive ? 'scale-x-100' : ''}`}
                 />
@@ -59,14 +59,14 @@ const Navbar:FC = () => {
             </NavLink>
 
             {/* TV */}
-            <NavLink to='/tv' className='relative mx-4 2xl:mx-[1vw] pb-1 group'>
+            <NavLink to='/tv' className='relative mx-4 2xl:mx-[1vw] py-1 group'>
             {({ isActive }) => (
               <>
-                <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-semibold text-xl xl:text-3xl 2xl:text-[4vh] mb-2">
+                <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-semibold text-[2vh] sm:text-xl xl:text-3xl 2xl:text-[4vh] mb-2">
                   TV Series
                 </h1>
                 <hr
-                className={`absolute left-0 w-full bottom-0 h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
+                className={`absolute left-0 w-full bottom-0 min-[300px]:h-[3px] xl:h-[5px] border-none bg-red-500 transition-all duration-300 ease-out 
                 origin-center scale-x-0 group-hover:scale-x-100
                 ${isActive ? 'scale-x-100' : ''}`}
                 />

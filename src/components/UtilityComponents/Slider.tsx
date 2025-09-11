@@ -16,15 +16,15 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
     else window.location.href = '/tv'
   }
   return (
-    <div className='w-full bg-black px-3 xl:px-8 py-0 pb-5 xl:py-20 2xl:px-[3vw]'>
+    <div className='w-full bg-black px-3 xl:px-8 py-0 pb-2 sm:pb-5 xl:py-20 2xl:px-[3vw]'>
         {isLoading ? 
         (<></>): ( 
         <>
         {/* Bên trên*/}
-        <div className='flex w-full items-center justify-between mb-5 2xl:mb-[3vh]'>
-            <h2 className='text-white text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] font-semibold appear'>{title}</h2>
+        <div className='flex w-full items-center justify-center min-[300px]:justify-between mb-5 2xl:mb-[3vh]'>
+            <h2 className='text-white text-[3vh] min-[200px]:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] font-semibold appear'>{title}</h2>
             <button 
-                className='hover:text-gray-500 hover:bg-white rounded-full px-4 xl:px-7 xl:py-1 2xl:px-10 border-2 border-white text-white text-sm lg:text-lg xl:text-xl 2xl:text-[3vh] font-semibold appear'
+                className='hidden min-[300px]:flex hover:text-gray-500 hover:bg-white rounded-full px-2 min-[300px]:px-4 xl:px-7 xl:py-1 2xl:px-10 border-2 border-white text-white text-sm lg:text-lg xl:text-xl 2xl:text-[3vh] font-semibold appear'
                 onClick={redirect}
             >View more</button>
         </div>
