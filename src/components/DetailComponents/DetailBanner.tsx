@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import { detailBannerProps, genre, cast } from '../../interface/interfaces'
 
 
@@ -12,7 +12,9 @@ const DetailBanner:React.FC<detailBannerProps> = ({movie, casts}) => {
     }}>
         {/* Poster phim bên trái */}
         <div className='hidden w-full md:basis-1/3 2xl:basis:2/5 z-30 md:px-2 xl:px-4 2xl:px-0 md:flex'>
-            <img loading='lazy' src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`} alt={movie?.title} className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
+            <Suspense fallback={'<div  className="min-w-full min-h-full animate-pulse rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto"></div>'}>
+                <img loading='lazy' src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`} alt={movie?.title} className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
+            </Suspense>
         </div>
         
         {/* Thông tin phim bên phải */}

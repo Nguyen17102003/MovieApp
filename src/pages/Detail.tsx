@@ -1,9 +1,10 @@
-import React from 'react'
+import React, {lazy} from 'react'
 import { useParams } from 'react-router-dom'
 import { useQueries } from '@tanstack/react-query'
-import DetailBanner from '../components/DetailComponents/DetailBanner'
 import Video from '../components/DetailComponents/Video'
-import Slider from '../components/UtilityComponents/Slider'
+
+const DetailBanner = lazy(() => import('../components/DetailComponents/DetailBanner'))
+const Slider = lazy(() => import('../components/UtilityComponents/Slider'))
 
 const Detail:React.FC = () => {
   const { type, id } = useParams() // Lấy type ('/movie', '/tv') và id phim
