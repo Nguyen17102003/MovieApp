@@ -1,4 +1,4 @@
-import {FC, useEffect, useState, lazy} from 'react'
+import {FC, useEffect, useState, lazy, Suspense} from 'react'
 import { movie } from '../interface/interfaces'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/navigation';
@@ -35,38 +35,32 @@ const Home:FC = () => {
         pagination={false}>
           {
             trendingMovies.data?.results.map((movie: movie, index:number) => (
-              <SwiperSlide lazy={true} key={movie.id}>
+              <SwiperSlide key={movie.id}>
                 <Banner movie={movie} isActive={index === activeIndex}/>
               </SwiperSlide>
             ))
           }
         </Swiper>
-        <LazyLoad fallback={<div className="min-h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
-          <Slider
-          title="Trending Movies"
-          type="movie"
-          movies={trendingMovies.data?.results || []}
-          isLoading={trendingMovies.isLoading}
-          />
-        </LazyLoad>
+        <Slider
+        title="Trending Movies"
+        type="movie"
+        movies={trendingMovies.data?.results || []}
+        isLoading={trendingMovies.isLoading}
+        />
 
-        <LazyLoad fallback={<div className="min-h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
-          <Slider
-          title="Top Rated Movies"
-          type="movie"
-          movies={topratedMovies.data?.results || []}
-          isLoading={topratedMovies.isLoading}
-          />
-        </LazyLoad>
+        <Slider
+        title="Top Rated Movies"
+        type="movie"
+        movies={topratedMovies.data?.results || []}
+        isLoading={topratedMovies.isLoading}
+        />
 
-        <LazyLoad fallback={<div className="min-h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
-          <Slider
-          title="Trending TV"
-          type="tv"
-          movies={trendingTV.data?.results || []}
-          isLoading={trendingTV.isLoading}
-          />
-        </LazyLoad>
+        <Slider
+        title="Trending TV"
+        type="tv"
+        movies={trendingTV.data?.results || []}
+        isLoading={trendingTV.isLoading}
+        />
 
         <LazyLoad fallback={<div className="h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
           <Slider

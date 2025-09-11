@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { useQueries } from '@tanstack/react-query'
 import Video from '../components/DetailComponents/Video'
 
-// Lazy imports
 const DetailBanner = lazy(() => import('../components/DetailComponents/DetailBanner'))
 const Slider = lazy(() => import('../components/UtilityComponents/Slider'))
 
