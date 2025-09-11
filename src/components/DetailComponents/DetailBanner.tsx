@@ -4,7 +4,7 @@ import { detailBannerProps, genre, cast } from '../../interface/interfaces'
 
 const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
   return (
-    <div className={`${isLoading ? 'bg-gray-500 animate-pulse' : ''} relative min-h-screen min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 2xl:px-[5vw] 2xl:gap-12 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center`}
+    <div className={`${isLoading ? 'bg-gray-500 animate-pulse' : ''} relative md:min-h-[50vh] xl:min-h-screen min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 2xl:px-[5vw] 2xl:gap-12 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center`}
     style={{
         backgroundImage: movie?.backdrop_path
         ? `image-set(
@@ -19,9 +19,19 @@ const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
         <div className='hidden w-full md:basis-1/3 2xl:basis:2/5 z-30 md:px-2 xl:px-4 2xl:px-0 md:flex'>
             {
             isLoading ? (
-                <div className='min-w-[30vw] min-h-[100vh] rounded-xl md:rounded-2xl lg:rounded-3xl animate-pulse bg-gray-700'></div>
+                <div className='min-w-[30vw] 2xl:min-h-[100vh] rounded-xl md:rounded-2xl lg:rounded-3xl animate-pulse bg-gray-700'></div>
             ) : (
-                 <img loading='lazy' src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500/${movie?.poster_path}` : '/assets/No_image_available.png'} alt={movie?.title} className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
+                <img 
+                loading='lazy' 
+                srcSet={`
+                https://image.tmdb.org/t/p/w185/${movie.poster_path} 185w,
+                https://image.tmdb.org/t/p/w342/${movie.poster_path} 342w,
+                https://image.tmdb.org/t/p/w500/${movie.poster_path} 500w
+                `}
+                sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px"
+                src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500/${movie?.poster_path}` : '/assets/No_image_available.png'} 
+                alt={movie?.title} 
+                className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
             )
             }
            
