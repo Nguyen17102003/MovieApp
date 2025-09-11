@@ -2,8 +2,8 @@ import {FC, lazy, Suspense, useEffect, useMemo} from 'react'
 import { Outlet } from 'react-router-dom'
 import { useData } from '../context/Context'
 import { pagesProps } from '../interface/interfaces'
+import Gradient from '../components/UtilityComponents/Gradient'
 
-const Gradient = lazy(() => import('../components/UtilityComponents/Gradient'))
 const List = lazy(() => import('../components/DetailComponents/List'))
 const Pages:FC<pagesProps> = ({location, type}) => {
   const { 
@@ -31,9 +31,7 @@ const Pages:FC<pagesProps> = ({location, type}) => {
 
   return (
     <>
-      <Suspense fallback={<div className="w-full h-[10rem] bg-gradient-to-r from-gray-800 to-black animate-pulse" />}>
-        <Gradient location={location} />
-      </Suspense>
+      <Gradient location={location} />
       <Suspense fallback={<div className="w-full h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
         <List
         type={type}
