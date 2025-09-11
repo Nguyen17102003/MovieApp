@@ -1,4 +1,4 @@
-import {FC, useEffect, useState, lazy, Suspense} from 'react'
+import {FC, useEffect, useState, lazy} from 'react'
 import { movie } from '../interface/interfaces'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/navigation';
@@ -6,7 +6,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css'
 import { useData } from '../context/Context'
-import LazyLoad from '../components/UtilityComponents/LazyLoad';
 
 const Banner = lazy(() => import('../components/HomeComponents/Banner'))
 const Slider = lazy(() => import('../components/UtilityComponents/Slider'))
@@ -41,36 +40,10 @@ const Home:FC = () => {
             ))
           }
         </Swiper>
-        <Slider
-        title="Trending Movies"
-        type="movie"
-        movies={trendingMovies.data?.results || []}
-        isLoading={trendingMovies.isLoading}
-        />
-
-        <Slider
-        title="Top Rated Movies"
-        type="movie"
-        movies={topratedMovies.data?.results || []}
-        isLoading={topratedMovies.isLoading}
-        />
-
-        <Slider
-        title="Trending TV"
-        type="tv"
-        movies={trendingTV.data?.results || []}
-        isLoading={trendingTV.isLoading}
-        />
-
-        <LazyLoad fallback={<div className="h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
-          <Slider
-          title="Top Rated TV"
-          type="tv"
-          movies={topratedTV.data?.results || []}
-          isLoading={topratedTV.isLoading}
-          />
-        </LazyLoad>
-
+        <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []} isLoading={trendingMovies.isLoading}/>
+        <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []} isLoading={topratedMovies.isLoading}/>
+        <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []} isLoading={trendingTV.isLoading}/>
+        <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []} isLoading={topratedMovies.isLoading}/>
       </main>
     </>
   )
