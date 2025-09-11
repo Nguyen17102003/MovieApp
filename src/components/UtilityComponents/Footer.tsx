@@ -1,16 +1,16 @@
-import React from 'react'
+import {FC} from 'react'
 import { Link } from 'react-router-dom'
-const Footer = () => {
+const Footer:FC = () => {
   return (
     <div className='w-full py-20 lg:pt-20 xl:py-40 2xl:px-[10vh] 2xl:py-[20vh] bg-cover bg-no-repeat' style={{backgroundImage: 'url("/assets/footer.jpg")'}}>
       {/* Phần bên trên */}
       <div className='w-full flex justify-center lg:pb-20 2xl:pb-[10vh] px-40'>
       {/* Logo */}
-      <Link to="/" className='hidden mt-10 lg:flex items-center gap-5 2xl:gap-[2vw]'>
-          <img src='/assets/logo.png' alt="Logo icon" className='w-15 2xl:w-[5vw]'/>
+      <Link to="/"onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}  className='hidden mt-10 lg:flex items-center gap-5 2xl:gap-[2vw]'>
+          <img loading='lazy' src='/assets/logo.png' alt="Logo icon" className='w-15 2xl:w-[5vw]'/>
           <h1 className='text-white font-semibold text-2xl xl:text-5xl 2xl:text-[6vh] group-hover:text-red-main group-hover:transistion-custom'>
           theMovies
-          </h1>
+            </h1>
       </Link>
       </div>
       {/* Phần bên dưới */}

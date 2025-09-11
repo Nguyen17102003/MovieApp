@@ -1,10 +1,8 @@
-import React from 'react'
+import {FC, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { bannerProps } from '../../interface/interfaces'
 
-
-const Banner:React.FC<bannerProps> = ({movie, isActive}) => {
-
+const Banner:FC<bannerProps> = ({movie, isActive}) => {
   return (
     <div key={isActive ? `active-${movie.id}` : `inactive-${movie.id}`} 
     className='bg-no-repeat bg-center w-screen min-w-sreen h-full xl:bg-top bg-cover relative z-50 md:px-12 md:pt-5 2xl:px-[5vw] 2xl:pt-[10vh]

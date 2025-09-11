@@ -51,7 +51,8 @@ export interface listProps {
 export interface sliderProps {
     title: string,
     type: string | undefined,
-    movies: movie[]
+    movies: movie[],
+    isLoading: boolean
 }
 
 export interface sliderItemProps {

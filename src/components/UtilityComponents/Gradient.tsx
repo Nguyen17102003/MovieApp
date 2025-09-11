@@ -1,9 +1,9 @@
-import React, {useEffect, useRef} from 'react'
+import {FC, useEffect, useRef} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useData } from '../../context/Context'
 import { gradientProps } from '../../interface/interfaces'
 
-const Gradient:React.FC<gradientProps> = ({location}) => {
+const Gradient:FC<gradientProps> = ({location}) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
   const getQuery = () => (new URLSearchParams(useLocation().search))

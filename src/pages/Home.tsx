@@ -1,22 +1,29 @@
-import React, {useEffect, useState} from 'react'
+import {FC, useEffect, useState, lazy} from 'react'
 import { movie } from '../interface/interfaces'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css'
-import Banner from '../components/HomeComponents/Banner'
-import Slider from '../components/UtilityComponents/Slider'
 import { useData } from '../context/Context'
 
-const Home = () => {
+const Banner = lazy(() => import('../components/HomeComponents/Banner'))
+const Slider = lazy(() => import('../components/UtilityComponents/Slider'))
+
+const Home:FC = () => {
   const [activeIndex, setActiveIndex] = useState(0); // Index của slide hiện tại 
   const { trendingMovies, trendingTV, 
-        topratedMovies, topratedTV, reset, setSearchTerm } = useData() 
+        topratedMovies, topratedTV, 
+        reset, setSearchTerm,
+        setHydrated } = useData() 
   useEffect(() => {
     setSearchTerm(null)
     reset()
   }, [])
+  useEffect(() => {
+    if(trendingMovies.data)
+      setHydrated(true)
+  }, [trendingMovies])
   return (
     <>
       <main>
@@ -33,10 +40,10 @@ const Home = () => {
             ))
           }
         </Swiper>
-        <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []}/>
-        <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []}/>
-        <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []}/>
-        <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []}/>
+        <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []} isLoading={trendingMovies.isLoading}/>
+        <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []} isLoading={topratedMovies.isLoading}/>
+        <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []} isLoading={trendingTV.isLoading}/>
+        <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []} isLoading={topratedMovies.isLoading}/>
       </main>
     </>
   )

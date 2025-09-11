@@ -1,4 +1,4 @@
-import React from 'react'
+import {FC} from 'react'
 import { sliderProps } from '../../interface/interfaces';
 import SliderItem from './SliderItem'
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,7 +8,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css'
 
-const Slider:React.FC<sliderProps> = ({title='', type, movies}) => {
+const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
   const redirect = () => {
     // Điều hướng trang web
     if(type === 'movie')
@@ -17,7 +17,10 @@ const Slider:React.FC<sliderProps> = ({title='', type, movies}) => {
   }
   return (
     <div className='w-full bg-black px-3 xl:px-8 py-0 pb-5 xl:py-20 2xl:px-[3vw]'>
-        {/* Bên trên */}
+        {isLoading ? 
+        (<></>): ( 
+        <>
+        {/* Bên trên*/}
         <div className='flex w-full items-center justify-between mb-5 2xl:mb-[3vh]'>
             <h2 className='text-white text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[4vh] font-semibold appear'>{title}</h2>
             <button 
@@ -53,6 +56,8 @@ const Slider:React.FC<sliderProps> = ({title='', type, movies}) => {
             }
             
         </Swiper>
+        </>)
+        }
     </div>
   )
 }

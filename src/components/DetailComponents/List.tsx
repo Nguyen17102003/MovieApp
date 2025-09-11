@@ -1,8 +1,8 @@
-import React from 'react'
+import {FC} from 'react'
 import { listProps } from '../../interface/interfaces'
 import SliderItem from '../../components/UtilityComponents/SliderItem'
 
-const List:React.FC<listProps> = ({movies, type, fetchFn}) => {
+const List:FC<listProps> = ({movies, type, fetchFn}) => {
   return (
     <div className='w-full flex items-center justify-center flex-col bg-black pb-10 gap-10 2xl:gap-[10vh] 2xl:pb-[10vh]'>
       <div className='bg-black grid xl:grid-cols-6 lg:grid-cols-4 grid-cols-2 gap-x-5 2xl:gap-x-10 gap-y-15 px-8 2xl:px-[3vw] pb-5'>

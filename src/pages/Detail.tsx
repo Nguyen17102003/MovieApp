@@ -1,4 +1,4 @@
-import React, {lazy} from 'react'
+import {lazy, FC, Suspense} from 'react'
 import { useParams } from 'react-router-dom'
 import { useQueries } from '@tanstack/react-query'
 import Video from '../components/DetailComponents/Video'
@@ -6,7 +6,7 @@ import Video from '../components/DetailComponents/Video'
 const DetailBanner = lazy(() => import('../components/DetailComponents/DetailBanner'))
 const Slider = lazy(() => import('../components/UtilityComponents/Slider'))
 
-const Detail:React.FC = () => {
+const Detail:FC = () => {
   const { type, id } = useParams() // Lấy type ('/movie', '/tv') và id phim
   const API_URL = import.meta.env.VITE_API_URL as string // API URL
   const API_KEY = import.meta.env.VITE_API_KEY as string // API KEY
@@ -59,19 +59,25 @@ const Detail:React.FC = () => {
 
   return (
     <div>
-      <DetailBanner
+      <Suspense>
+        <DetailBanner
         movie={details}
         casts={casts}
         isLoading={results[0].isLoading}
       />
+      </Suspense>
+      
 
       {videos.map((video: any) => (
         <Video key={video.id} id={video.id} name={video.name} videoKey={video.key} />
       ))}
 
-      <div className="min-w-screen w-full xl:px-15 py-10 bg-black">
-        <Slider title='Similar' type={type} movies={similar} />
+      <Suspense>
+        <div className="min-w-screen w-full xl:px-15 py-10 bg-black">
+        <Slider title='Similar' type={type} movies={similar} isLoading={results[3].isLoading}/>
       </div>
+      </Suspense>
+      
     </div>
   )
 }

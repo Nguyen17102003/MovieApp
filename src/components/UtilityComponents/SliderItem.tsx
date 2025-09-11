@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import {FC, useState, useEffect} from 'react'
 import icons from '../../../public/assets/icon'
 import { sliderItemProps } from '../../interface/interfaces'
 import { Link } from 'react-router-dom'

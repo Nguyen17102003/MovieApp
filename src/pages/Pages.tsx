@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react'
+import {FC, lazy, Suspense, useEffect} from 'react'
 import { Outlet } from 'react-router-dom'
-import Gradient from '../components/DetailComponents/Gradient'
-import List from '../components/DetailComponents/List'
 import { useData } from '../context/Context'
 import { pagesProps } from '../interface/interfaces'
 
-const Pages:React.FC<pagesProps> = ({location, type}) => {
+const Gradient = lazy(() => import('../components/UtilityComponents/Gradient'))
+const List = lazy(() => import('../components/DetailComponents/List'))
+const Pages:FC<pagesProps> = ({location, type}) => {
   const { 
     allMovies, allTVSeries, 
     loadMore, reset,
     searchQuery, searchType,
-    setSearchType} = useData()
+    setSearchType, setHydrated} = useData()
   useEffect(() => {
     setSearchType(type);
+    setHydrated(false)
     reset()
   }, [location])
 
@@ -31,11 +32,13 @@ const Pages:React.FC<pagesProps> = ({location, type}) => {
   return (
     <>
       <Gradient location={location}/>
-      <List
+      <Suspense>
+        <List
         type={type}
         movies={movies()} 
         fetchFn={() => loadMore(type)}
       />
+      </Suspense>
       <Outlet/>
     </>
   )

@@ -1,14 +1,14 @@
-import React from 'react'
+import React, {lazy, Suspense} from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import Pages from './pages/Pages'
 import Navbar from './components/UtilityComponents/Navbar'
-import Detail from './pages/Detail'
 import Footer from './components/UtilityComponents/Footer'
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
 import Provider from './context/Context'
 import { queryClient, persister } from './context/QueryClient'
 
+const Home = lazy(() => import('./pages/Home'))
+const Pages = lazy(() => import('./pages/Pages'))
+const Detail = lazy(() => import('./pages/Detail'))
 const App: React.FC = () => {
   return (
     <PersistQueryClientProvider 
@@ -22,12 +22,12 @@ const App: React.FC = () => {
       }}
     >
       <Provider>
-        <Navbar />
+        <Navbar/>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/movie' element={<Pages type='movie' location='Movies'/>} />
-          <Route path='/tv' element={<Pages type='tv' location='TV Series' />} />
-          <Route path='/:type/:id' element={<Detail />} />
+          <Route path='/movie' element={<Suspense><Pages type='movie' location='Movies'/></Suspense>} />
+          <Route path='/tv' element={<Suspense><Pages type='tv' location='TV Series' /></Suspense>} />
+          <Route path='/:type/:id' element={<Suspense><Detail /></Suspense>} />
         </Routes>
         <Footer/>
       </Provider>

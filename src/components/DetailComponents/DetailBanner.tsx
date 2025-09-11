@@ -1,8 +1,8 @@
-import React from 'react'
+import {FC} from 'react'
 import { detailBannerProps, genre, cast } from '../../interface/interfaces'
 
 
-const DetailBanner:React.FC<detailBannerProps> = ({movie, casts, isLoading}) => {
+const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
   return (
     <div className={`${isLoading ? 'bg-gray-500 animate-pulse' : ''} relative min-h-screen min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 2xl:px-[5vw] 2xl:gap-12 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center`}
     style={{
