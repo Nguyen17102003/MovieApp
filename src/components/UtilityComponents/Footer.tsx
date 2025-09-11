@@ -2,7 +2,7 @@ import {FC} from 'react'
 import { Link } from 'react-router-dom'
 const Footer:FC = () => {
   return (
-    <div className='w-full py-20 lg:pt-20 xl:py-40 2xl:px-[10vh] 2xl:py-[20vh] bg-cover bg-no-repeat' style={{backgroundImage: 'url("/assets/footer.jpg")'}}>
+    <div className='w-full py-20 lg:pt-20 xl:py-40 2xl:px-[10vh] 2xl:py-[20vh] bg-cover bg-no-repeat aspect-auto' style={{backgroundImage: 'url("/assets/footer.jpg")'}}>
       {/* Phần bên trên */}
       <div className='w-full flex justify-center lg:pb-20 2xl:pb-[10vh] px-40'>
       {/* Logo */}
