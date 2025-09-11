@@ -6,10 +6,15 @@ const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
   return (
     <div className={`${isLoading ? 'bg-gray-500 animate-pulse' : ''} relative min-h-screen min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 2xl:px-[5vw] 2xl:gap-12 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center`}
     style={{
-    backgroundImage: movie?.backdrop_path
-      ? `url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`
-      : "none"
-    }}>
+        backgroundImage: movie?.backdrop_path
+        ? `image-set(
+        url(https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}) 1x,
+        url(https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}) 2x,
+        url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path}) 3x
+        )`
+        : "none",
+    }}
+    >
         {/* Poster phim bên trái */}
         <div className='hidden w-full md:basis-1/3 2xl:basis:2/5 z-30 md:px-2 xl:px-4 2xl:px-0 md:flex'>
             {
