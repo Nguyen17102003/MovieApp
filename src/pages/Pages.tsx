@@ -1,4 +1,4 @@
-import {FC, lazy, Suspense, useEffect} from 'react'
+import {FC, lazy, Suspense, useEffect, useMemo} from 'react'
 import { Outlet } from 'react-router-dom'
 import { useData } from '../context/Context'
 import { pagesProps } from '../interface/interfaces'
@@ -17,7 +17,7 @@ const Pages:FC<pagesProps> = ({location, type}) => {
     reset()
   }, [location])
 
-  const movies = () => {
+  const movies = useMemo(() => {
   if (searchQuery.data 
     && searchQuery.data.results?.length > 0 
     && searchType === type) {
@@ -26,13 +26,15 @@ const Pages:FC<pagesProps> = ({location, type}) => {
   return type === 'movie'
     ? (allMovies.data?.results || [])
     : (allTVSeries.data?.results || [])
-  }
+  }, [searchQuery.data, searchType, type, allMovies.data, allTVSeries.data])
 
 
   return (
     <>
-      <Gradient location={location}/>
-      <Suspense>
+      <Suspense fallback={<div className="w-full h-[10rem] bg-gradient-to-r from-gray-800 to-black animate-pulse" />}>
+        <Gradient location={location} />
+      </Suspense>
+      <Suspense fallback={<div className="w-full h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
         <List
         type={type}
         movies={movies()} 
