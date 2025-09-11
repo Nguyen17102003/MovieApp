@@ -27,6 +27,12 @@ const SliderItem:React.FC<sliderItemProps> = ({movie, type}) => {
               ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
               : '/assets/No_image_available.png'
           }
+          srcSet={`
+          https://image.tmdb.org/t/p/w185/${movie.poster_path} 185w,
+          https://image.tmdb.org/t/p/w342/${movie.poster_path} 342w,
+          https://image.tmdb.org/t/p/w500/${movie.poster_path} 500w
+          `}
+          sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px"
           alt={movie.title}
           className="child object-cover aspect-auto h-[20rem] 2xl:h-[50vh] rounded-3xl 2xl:rounded-4xl group-hover:brightness-50 transition-all duration-200 ease-in-out"
         />
