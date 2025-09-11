@@ -1,10 +1,10 @@
-import React, {Suspense} from 'react'
+import React from 'react'
 import { detailBannerProps, genre, cast } from '../../interface/interfaces'
 
 
-const DetailBanner:React.FC<detailBannerProps> = ({movie, casts}) => {
+const DetailBanner:React.FC<detailBannerProps> = ({movie, casts, isLoading}) => {
   return (
-    <div className='relative min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 2xl:px-[5vw] 2xl:gap-12 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center'
+    <div className={`${isLoading ? 'bg-gray-500 animate-pulse' : ''} relative min-h-screen min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 2xl:px-[5vw] 2xl:gap-12 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center`}
     style={{
     backgroundImage: movie?.backdrop_path
       ? `url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`
@@ -12,9 +12,14 @@ const DetailBanner:React.FC<detailBannerProps> = ({movie, casts}) => {
     }}>
         {/* Poster phim bên trái */}
         <div className='hidden w-full md:basis-1/3 2xl:basis:2/5 z-30 md:px-2 xl:px-4 2xl:px-0 md:flex'>
-            <Suspense fallback={'<div  className="min-w-full min-h-full animate-pulse rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto"></div>'}>
-                <img loading='lazy' src={`https://image.tmdb.org/t/p/w500/${movie?.poster_path}`} alt={movie?.title} className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
-            </Suspense>
+            {
+            isLoading ? (
+                <div className='min-w-[30vw] min-h-[100vh] rounded-xl md:rounded-2xl lg:rounded-3xl animate-pulse bg-gray-700'></div>
+            ) : (
+                 <img loading='lazy' src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500/${movie?.poster_path}` : '/assets/No_image_available.png'} alt={movie?.title} className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
+            )
+            }
+           
         </div>
         
         {/* Thông tin phim bên phải */}
@@ -28,7 +33,7 @@ const DetailBanner:React.FC<detailBannerProps> = ({movie, casts}) => {
             <div className='text-white text-xs md:text-sm lg:text-xl 2xl:text-[3vh] font-normal lg:font-medium text-justify'>
                 {movie?.overview}
             </div>
-            <h2 className='text-white font-semibold lg:text-2xl 2xl:text-[5vh]'>Casts</h2>
+            <h2 className='text-white font-semibold lg:text-2xl 2xl:text-[5vh]'>{isLoading ? '' : 'Casts' }</h2>
             <div className='md:flex lg:gap-5 2xl:gap-10 gap-3 lg:pb-15 grid grid-cols-3' >
                 {casts && casts.map((cast: cast, i: number) => (
                     <div key={i} className='md:w-full xl:w-25 2xl:w-[10vw]'>

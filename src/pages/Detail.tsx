@@ -62,6 +62,7 @@ const Detail:React.FC = () => {
       <DetailBanner
         movie={details}
         casts={casts}
+        isLoading={results[0].isLoading}
       />
 
       {videos.map((video: any) => (

@@ -35,6 +35,7 @@ export interface bannerProps {
 export interface detailBannerProps {
     movie: detail,
     casts: cast[],
+    isLoading: boolean
 }
 
 export interface gradientProps {
