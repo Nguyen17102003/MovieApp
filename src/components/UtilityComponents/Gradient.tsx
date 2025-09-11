@@ -39,7 +39,7 @@ const Gradient:FC<gradientProps> = ({location}) => {
                 className='h-full text-center flex items-center flex-4/10 rounded-full 2xl:px-[2vw] px-8 bg-red-600  font-semibold custom-shadow'
                 onClick={() => {
                   const value = inputRef.current?.value?? ""
-                  window.location.search = `query=${encodeURIComponent(value)}`
+                  navigate(`?query=${encodeURIComponent(value)}`)
                   handleSearch(value)}
                 }
                 >Search</button>
