@@ -18,7 +18,7 @@ const Gradient:FC<gradientProps> = ({location}) => {
   }, [])
   const { handleSearch } = useData()
   return (
-    <div className='min-h-[30vh] gap-10 md:gap-0 overflow-x-hidden justify-center items-center md:items-start w-full 2xl:h-[50vh] pb-10 bg-gradient-to-t from-gray-900 md:from-gray-950 via-gray-800 to-[rgb(132, 245, 143)] flex flex-col'>
+    <div className='min-h-[30vh] gap-10 md:gap-0 overflow-x-hidden justify-center items-center md:items-start w-full 2xl:h-[50vh] pb-10 bg-gradient-to-t from-gray-900 md:from-gray-950 xl:from-black via-gray-800 to-[rgb(132, 245, 143)] flex flex-col'>
         <div className="w-full flex items-center justify-center pt-10 md:pt-30 md:pb-15 2xl:pt-[15vh]">
             <h1 className='text-[3vh] min-[100px]:text-[5vh] sm:text-2xl md:text-4xl xl:text-5xl 2xl:text-[10vh] text-white font-bold'>{location}</h1>
         </div>
