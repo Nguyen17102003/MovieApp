@@ -9,7 +9,7 @@ const List:FC<listProps> = ({movies, type, fetchFn}) => {
         {movies?.length > 0 ? (
           movies.map((movie) => (
             <div key={movie.id}>
-                <SliderItem type={type} movie={movie} />
+              <SliderItem type={type} movie={movie} />
             </div>
           ))) 
          : (<h1 className="xl:text-3xl py-10 px-10">Loading...</h1>)
