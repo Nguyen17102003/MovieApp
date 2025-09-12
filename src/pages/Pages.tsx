@@ -10,34 +10,52 @@ const Pages:FC<pagesProps> = ({location, type}) => {
     allMovies, allTVSeries, 
     loadMore, reset,
     searchQuery, searchType,
-    setSearchType, setHydrated} = useData()
+    setSearchType, setHydrated,
+    searchTerm} = useData()
   useEffect(() => {
     setSearchType(type);
     setHydrated(false)
     reset()
   }, [location])
 
+  const isSearching = !!searchTerm
+
   const movies = useMemo(() => {
-  if (searchQuery.data 
-    && searchQuery.data.results?.length > 0 
-    && searchType === type) {
-    return searchQuery.data.results
-  }
-  return type === 'movie'
+    if (isSearching) {
+      if (searchQuery.isLoading) {
+        return null 
+      }
+      if (searchQuery.data && searchType === type) {
+        return searchQuery.data.results
+      }
+      return [] 
+    }
+
+    return type === "movie"
     ? (allMovies.data?.results || [])
     : (allTVSeries.data?.results || [])
-  }, [searchQuery.data, searchType, type, allMovies.data, allTVSeries.data])
-
+  }, [isSearching, searchQuery, searchType, type, allMovies.data, allTVSeries.data])
 
   return (
     <div className='w-full'>
       <Gradient location={location} />
       <Suspense fallback={<div className="w-full h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
-        <List
-        type={type}
-        movies={movies} 
-        fetchFn={() => loadMore(type)}
-      />
+        {
+            movies?.length > 0 ?  (
+            <div id="results">
+            <List
+            type={type}
+            movies={movies} 
+            fetchFn={() => loadMore(type)}
+            />
+            </div>
+          ) : (
+            <div className='bg-black w-full h-screen gap-20 flex flex-col items-center'>
+              <h1 id="results" className='text-white text-[7vh] font-bold capitalize'>No result found for: {searchTerm}</h1>
+              <img loading='lazy' src='/assets/sadness.png' className='w-[50vh] h-[50vh] object-contain object-center aspect-square'/>
+            </div>
+          ) 
+        }
       </Suspense>
       <Outlet/>
     </div>

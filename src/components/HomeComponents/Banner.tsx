@@ -5,7 +5,7 @@ import { bannerProps } from '../../interface/interfaces'
 const Banner:FC<bannerProps> = ({movie, isActive}) => {
   return (
     <div key={isActive ? `active-${movie.id}` : `inactive-${movie.id}`} 
-    className='bg-no-repeat bg-center w-full min-w-sreen h-full xl:bg-top bg-cover relative md:px-12 md:pt-5 2xl:px-[5vw] 2xl:pt-[10vh]
+    className='overflow-hidden bg-no-repeat bg-center w-full min-w-sreen min-h-screen h-fit xl:h-screen 2xl:h-[120vh] xl:bg-center 2xl:bg-center  bg-cover relative md:px-50 2xl:px-[20vw] 2xl:py-[10vh]
     before:bg-[rgba(255, 255, 255, 0.4)] before:w-full before:h-full before:z-0 before:backdrop-brightness-45 before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0
     after:z-10 after:w-full after:h-full after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent'
     style={{
@@ -13,15 +13,15 @@ const Banner:FC<bannerProps> = ({movie, isActive}) => {
       ? `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`
       : "none"
     }}>  
-        <div className='z-20 px-2 min-[300px]:px-8 lg:px-10 lg:pt-10 xl:pt-40 flex gap-20'>
+        <div className='z-20 px-2 w-full lg:py-10 xl:py-40 flex gap-20 2xl:gap-[10vh] h-auto items-stretch'>
             {/* Bên trái */}
-            <div className='z-20 flex flex-col w-full items-baseline gap-5 xl:py-10 xl:gap-15 xl:basis-2/3'>
+            <div className='z-20 flex flex-col w-full items-baseline gap-5 xl:gap-[5vh] xl:basis-2/3'>
                 {/* Tiêu đề */}
-                <h1 className={`text-[2vh] min-[200px]:text-base text-wrap sm:text-2xl text-white py-6 xl:py-0 text-4xl font-bold md:text-6xl xl:text-8xl 2xl:text-[10vh] xl:font-bold ${isActive ? 'textdrop-delay-300' : ''}`}>
+                <h1 className={`text-[2vh] min-[200px]:text-base text-wrap sm:text-2xl text-white py-6 xl:py-0 text-4xl font-bold md:text-4xl xl:text-5xl 2xl:text-[8vh] xl:font-bold ${isActive ? 'textdrop-delay-300' : ''}`}>
                   {movie.title}
                 </h1>
                 {/* Giới thiệu */}
-                <h1 className={`text-[2vh] min-[200px]:text-xs text-white md:text-xl xl:text-2xl 2xl:text-[4vh] font-semibold min-[200px]:text-justify ${isActive ? 'textdrop-delay-500' : ''}`}>
+                <h1 className={`text-[2vh] min-[200px]:text-xs text-white md:text-lg xl:text-xl 2xl:text-[2vh] font-semibold min-[200px]:text-justify ${isActive ? 'textdrop-delay-500' : ''}`}>
                   {movie.overview}
                 </h1>
                 {/* Nút bấm */}
@@ -41,7 +41,7 @@ const Banner:FC<bannerProps> = ({movie, isActive}) => {
             </div>
 
             {/* Bên phải */}
-            <div className={`hidden min-h-full z-50 xl:block xl:basis-1/3 h-full ${isActive ? 'grow' : ''}`}>
+            <div className={`hidden h-auto z-50 xl:block xl:basis-1/3 ${isActive ? 'grow' : ''}`}>
               <img loading='lazy' src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} alt={`${movie.title || 'Poster'}`} className='w-full h-full object-cover rounded-3xl aspect-auto'/>
             </div>
            

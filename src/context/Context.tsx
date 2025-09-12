@@ -153,6 +153,13 @@ const Provider = ({ children }: ProviderProps) => {
 
   const handleSearch = (keyword: string | null) => {
     setSearchTerm(keyword)
+    const el = document.getElementById("results")
+      if (el) {
+        const yOffset = -100
+        const y = el.getBoundingClientRect().top + window.scrollY + yOffset
+
+        window.scrollTo({ top: y, behavior: "smooth" })
+    }
   };
 
   // Hàm render các trang kế tiếp

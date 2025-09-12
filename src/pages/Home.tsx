@@ -26,24 +26,23 @@ const Home:FC = () => {
   }, [trendingMovies])
   return (
     <>
-      <main>
-        <Swiper 
-        className='h-[28rem] xl:h-[68rem] 2xl:h-[120vh]'
-        slidesPerView={1}
-        onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
-        pagination={false}>
+      <main className='pb-10 bg-black'>
+          <Swiper 
+          slidesPerView={1}
+          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
+          pagination={false}>
           {
-            trendingMovies.data?.results.map((movie: movie, index:number) => (
-              <SwiperSlide key={movie.id}>
-                <Banner movie={movie} isActive={index === activeIndex}/>
-              </SwiperSlide>
-            ))
+          trendingMovies.data?.results.map((movie: movie, index:number) => (
+            <SwiperSlide key={movie.id}>
+              <Banner movie={movie} isActive={index === activeIndex}/>
+            </SwiperSlide>
+          ))
           }
-        </Swiper>
-        <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []} isLoading={trendingMovies.isLoading}/>
-        <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []} isLoading={topratedMovies.isLoading}/>
-        <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []} isLoading={trendingTV.isLoading}/>
-        <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []} isLoading={topratedMovies.isLoading}/>
+          </Swiper>
+          <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []} isLoading={trendingMovies.isLoading}/>
+          <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []} isLoading={topratedMovies.isLoading}/>
+          <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []} isLoading={trendingTV.isLoading}/>
+          <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []} isLoading={topratedMovies.isLoading}/>
       </main>
     </>
   )

@@ -34,14 +34,14 @@ const SliderItem:React.FC<sliderItemProps> = ({movie, type}) => {
           ` : '/assets/No_image_available.png' }
           sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px"
           alt={movie.title}
-          className="child object-cover aspect-auto h-full sm:h-[20rem] 2xl:h-[50vh] rounded-md sm:rounded-2xl md:rounded-3xl 2xl:rounded-4xl group-hover:brightness-50 transition-all duration-200 ease-in-out"
+          className="child object-cover aspect-auto sm:h-[15rem] xl:h-[30vh] 2xl:h-[30vh] rounded-md sm:rounded-2xl md:rounded-2xl 2xl:rounded-4xl group-hover:brightness-50 transition-all duration-200 ease-in-out"
         />
       ) : (
-        <div className="child object-cover aspect-auto h-95 sm:h-[20rem] 2xl:h-[50vh] rounded-3xl 2xl:rounded-4xl animate-pulse bg-gray-800"></div>
+        <div className="child object-cover aspect-auto sm:h-[15rem] xl:h-[30vh] 2xl:h-[30vh] rounded-3xl 2xl:rounded-4xl animate-pulse bg-gray-800"></div>
       )}
-        <p className='child capitalize text-[2vh] min-[100px]:text-xs min-[300px]:text-base sm:text-xl xl:text-2xl 2xl:text-[3vh] font-semibold group-hover:text-red-500 hover:brightness-50 transistion-all duration-200 ease-in-out'>{movie.title || movie.name}</p>
-        <button className='child absolute top-[calc(20rem/2-1.5rem)] 2xl:top-[calc(50vh/2-5vh)] right-[calc(50%-3rem)] 2xl:right-[calc(50%-4vw)] h-[3rem] w-[6rem] 2xl:h-[10vh] 2xl:w-[8vw] bg-red-500 custom-shadow  rounded-full transistion-all duration-200 opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100'>
-            <icons.caretRightFill className="w-3 h-3 md:w-4 md:h-4 lg:w-6 lg:h-6 xl:w-8 xl:h-8 2xl:w-[5vh] 2xl:h-[10vh] text-white"/>
+        <p className='child capitalize text-[2vh] min-[100px]:text-xs min-[300px]:text-base sm:text-xl xl:text-base 2xl:text-[2vh] font-semibold group-hover:text-red-500 hover:brightness-50 transistion-all duration-200 ease-in-out'>{movie.title || movie.name}</p>
+        <button className='child absolute top-[calc(15rem/2-1.5rem)] xl:top-[calc(30vh/2-5vh)] 2xl:top-[calc(30vh/2-3vh)] right-[calc(50%-3rem)] 2xl:right-[calc(50%-2.5vw)] h-[3rem] w-[6rem] 2xl:h-[6vh] 2xl:w-[5vw] bg-red-500 custom-shadow  rounded-full transistion-all duration-200 opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100'>
+            <icons.caretRightFill className="w-3 h-3 md:w-4 md:h-4 lg:w-6 lg:h-6 xl:w-8 xl:h-8 2xl:w-[3vh] 2xl:h-[5vh] text-white"/>
         </button>
     </Link>
   )
