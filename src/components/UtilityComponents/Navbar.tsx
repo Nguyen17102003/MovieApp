@@ -25,7 +25,7 @@ const Navbar:FC = () => {
         </NavLink>
 
         {/* Link trang web */}
-        <div className='flex flex-col min-[200px]:flex-row gap-[2vw] flex-1 md:basis-1/4 py-3 2xl:py-[2vh] bg-black justify-evenly fixed left-0 bottom-0 right-0 xl:py-0 xl:bg-transparent xl:relative xl:left-auto xl:right-auto xl:bottom-auto'>
+        <div className='flex flex-col min-[200px]:flex-row gap-[2vw] flex-1 md:basis-1/4 py-3 2xl:py-[2vh] bg-black items-center sm:justify-evenly fixed left-0 bottom-0 right-0 xl:py-0 xl:bg-transparent xl:relative xl:left-auto xl:right-auto xl:bottom-auto'>
             {/* Trang chủ */}
             <NavLink to='/' className='relative py-1 group'>
             {({ isActive }) => (
