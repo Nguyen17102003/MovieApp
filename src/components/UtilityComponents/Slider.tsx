@@ -15,7 +15,7 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
     else window.location.href = '/tv'
   }
   return (
-    <div className='w-full bg-black px-3 py-0 pb-2 sm:pb-5 xl:py-10 md:px-50 2xl:px-[20vw]'>
+    <div className='max-w-full bg-black px-[5vw] py-0 pb-2 sm:pb-5 xl:py-10 md:px-50 2xl:px-[20vw]'>
         {isLoading ? 
         (<></>): ( 
         <>
@@ -30,7 +30,7 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
 
         {/* Slideshow */}
         <Swiper 
-            className='h-fit pb-0 shrink'
+            className='h-fit w-full pb-0 shrink'
             spaceBetween={30} 
             breakpoints={{
                 320: {

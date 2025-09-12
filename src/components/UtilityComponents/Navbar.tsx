@@ -14,7 +14,7 @@ const Navbar:FC = () => {
   }, [isScrolled]);
 
   return (
-    <div className={`flex px-[5vw] xl:px-[16vw] 2xl:px-[20vw] justify-between items-end fixed top-0 w-full min-w-screen z-10 bg-transparent ${isScrolled ? 'xl:bg-black' : 'xl:bg-transparent'}`}>
+    <div className={`flex px-[5vw] justify-between items-end fixed top-0 w-full z-10 bg-transparent ${isScrolled ? 'xl:bg-black' : 'xl:bg-transparent'}`}>
        <div className={`flex justify-between items-center w-full ${isScrolled ? 'xl:py-5 2xl:py-[2vh]' : 'xl:py-13 2xl:py-[5vh]'}`}>
         {/* Logo */}
         <NavLink to="/" className='hidden xl:flex items-center gap-5 2xl:gap-[1vw] basis-3/4'>
@@ -25,7 +25,7 @@ const Navbar:FC = () => {
         </NavLink>
 
         {/* Link trang web */}
-        <div className='flex flex-col min-[200px]:flex-row gap-[2vw] flex-1 md:basis-1/4 py-3 2xl:py-[2vh] bg-black items-center sm:justify-evenly fixed left-0 bottom-0 right-0 xl:py-0 xl:bg-transparent xl:relative xl:left-auto xl:right-auto xl:bottom-auto'>
+        <div className='flex flex-col min-[200px]:flex-row gap-[5vw] flex-1 md:basis-1/4 py-3 2xl:py-[2vh] bg-black items-center justify-center min-[300px]:justify-evenly fixed left-0 bottom-0 right-0 xl:py-0 xl:bg-transparent xl:relative xl:left-auto xl:right-auto xl:bottom-auto'>
             {/* Trang chủ */}
             <NavLink to='/' className='relative py-1 group'>
             {({ isActive }) => (

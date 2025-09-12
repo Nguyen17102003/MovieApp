@@ -5,7 +5,7 @@ import { bannerProps } from '../../interface/interfaces'
 const Banner:FC<bannerProps> = ({movie, isActive}) => {
   return (
     <div key={isActive ? `active-${movie.id}` : `inactive-${movie.id}`} 
-    className='overflow-hidden bg-no-repeat bg-center w-full min-w-sreen min-h-screen h-fit xl:h-screen 2xl:h-[120vh] xl:bg-center 2xl:bg-center  bg-cover relative md:px-50 2xl:px-[20vw] 2xl:py-[10vh]
+    className='overflow-hidden bg-no-repeat bg-center w-full h-fit xl:h-screen 2xl:h-[120vh] xl:bg-center 2xl:bg-center bg-cover relative md:px-50 2xl:px-[20vw] 2xl:py-[10vh]
     before:bg-[rgba(255, 255, 255, 0.4)] before:w-full before:h-full before:z-0 before:backdrop-brightness-45 before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0
     after:z-10 after:w-full after:h-full after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent'
     style={{
