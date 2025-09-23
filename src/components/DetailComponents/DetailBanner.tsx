@@ -25,9 +25,9 @@ const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
                     <img 
                     loading='lazy' 
                     srcSet={`
-                    https://image.tmdb.org/t/p/w185/${movie.poster_path} 185w,
-                    https://image.tmdb.org/t/p/w342/${movie.poster_path} 342w,
-                    https://image.tmdb.org/t/p/w500/${movie.poster_path} 500w
+                    https://image.tmdb.org/t/p/w185/${movie?.poster_path} 185w,
+                    https://image.tmdb.org/t/p/w342/${movie?.poster_path} 342w,
+                    https://image.tmdb.org/t/p/w500/${movie?.poster_path} 500w
                     `}
                     sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px"
                     src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500/${movie?.poster_path}` : '/assets/No_image_available.png'} 
@@ -59,9 +59,9 @@ const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
                         {casts && casts.map((cast: cast, i: number) => (
                             <div key={i} className='w-28 px-2 mb-1'>
                                 <img srcSet={`
-                                https://image.tmdb.org/t/p/w185/${movie.poster_path} 185w,
-                                https://image.tmdb.org/t/p/w342/${movie.poster_path} 342w,
-                                https://image.tmdb.org/t/p/w500/${movie.poster_path} 500w
+                                https://image.tmdb.org/t/p/w185/${cast.profile_path} 185w,
+                                https://image.tmdb.org/t/p/w342/${cast.profile_path} 342w,
+                                https://image.tmdb.org/t/p/w500/${cast.profile_path} 500w
                                 `}
                                 sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px" src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`} className='rounded-xl object-cover aspect-auto'/>
                                 <span className='text-white text-xs md:text-sm font-sm'>{cast.name}</span>
