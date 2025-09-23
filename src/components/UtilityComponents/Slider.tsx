@@ -14,7 +14,7 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
     else window.location.href = '/tv'
   }
   return (
-    <div className='max-w-screen-2xl mx-auto mt-8'>
+    <div className='max-w-screen-2xl mx-auto'>
         {isLoading ? 
         (<></>): ( 
         <>
