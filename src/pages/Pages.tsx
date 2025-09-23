@@ -39,7 +39,7 @@ const Pages:FC<pagesProps> = ({location, type}) => {
   return (
     <div className='w-full'>
       <Gradient location={location} />
-      <Suspense fallback={<div className="w-full h-[20rem] bg-gray-900 animate-pulse rounded-xl" />}>
+      <Suspense fallback={<div className="px-4 md:px-8 py-8 xl:p-16 bg-gray-900 animate-pulse rounded-xl" />}>
         {
             movies?.length > 0 ?  (
             <div id="results">
@@ -50,7 +50,7 @@ const Pages:FC<pagesProps> = ({location, type}) => {
             />
             </div>
           ) : (
-            <div className='bg-black w-full h-screen gap-20 flex flex-col items-center'>
+            <div className='bg-[#0f0f0f] px-4 md:px-8 py-8 xl:p-16 flex flex-col items-center justify-center'>
               <h1 id="results" className='text-white text-[7vh] font-bold capitalize'>No result found for: {searchTerm}</h1>
               <img loading='lazy' src='/assets/sadness.png' className='w-[50vh] h-[50vh] object-contain object-center aspect-square'/>
             </div>

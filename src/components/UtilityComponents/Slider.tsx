@@ -15,23 +15,23 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
     else window.location.href = '/tv'
   }
   return (
-    <div className='max-w-full bg-black px-[5vw] py-0 pb-2 sm:pb-5 xl:py-10 md:px-50 2xl:px-[20vw]'>
+    <div className='max-w-screen-2xl mx-auto'>
         {isLoading ? 
         (<></>): ( 
         <>
         {/* Bên trên*/}
-        <div className='flex w-full items-center justify-center min-[300px]:justify-between mb-5 2xl:mb-[3vh]'>
-            <h2 className='text-white text-[3vh] min-[200px]:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-[3vh] font-semibold appear'>{title}</h2>
+        <div className='flex items-center justify-between'>
+            <h2 className='text-white font-medium text-lg md:text-2xl appear'>{title}</h2>
             <button 
-                className='hidden min-[300px]:flex hover:text-gray-500 hover:bg-white rounded-full px-2 min-[300px]:px-4 xl:px-6 xl:py-1 2xl:px-10 border-2 border-white text-white text-sm lg:text-lg xl:text-xl 2xl:text-[2vh] font-semibold appear'
+                className='text-white border-white rounded-full border-3 md:border-2 font-semibold text-sm px-4 leading-5 md:px-8 md:text-xl md:leading-7 appear'
                 onClick={redirect}
             >View more</button>
         </div>
 
         {/* Slideshow */}
         <Swiper 
-            className='h-fit w-full pb-0 shrink'
-            spaceBetween={30} 
+            className='mt-8'
+            spaceBetween={15} 
             breakpoints={{
                 320: {
                     slidesPerView: 2,

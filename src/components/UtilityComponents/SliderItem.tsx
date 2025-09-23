@@ -17,7 +17,7 @@ const SliderItem:React.FC<sliderItemProps> = ({movie, type}) => {
   
   return (
     <Link 
-      className='shrink group relative flex flex-col gap-5 2xl:gap-10 text-white cursor-pointer'
+      className='shrink group relative flex flex-col text-white cursor-pointer'
       to={`/${type}/${movie.id}`}>
        {isImageLoaded ? (
         <img
@@ -34,13 +34,13 @@ const SliderItem:React.FC<sliderItemProps> = ({movie, type}) => {
           ` : '/assets/No_image_available.png' }
           sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px"
           alt={movie.title}
-          className="child object-cover aspect-auto sm:h-[15rem] xl:h-[30vh] 2xl:h-[30vh] rounded-md sm:rounded-2xl md:rounded-2xl 2xl:rounded-4xl group-hover:brightness-50 transition-all duration-200 ease-in-out"
+          className="child object-cover aspect-auto w-full h-72 2xl:h-80 rounded-3xl group-hover:brightness-50 transition-all duration-200 ease-in-out"
         />
       ) : (
-        <div className="child object-cover aspect-auto sm:h-[15rem] xl:h-[30vh] 2xl:h-[30vh] rounded-3xl 2xl:rounded-4xl animate-pulse bg-gray-800"></div>
+        <div className="child object-cover aspect-auto w-full h-72 2xl:h-80 rounded-3xl animate-pulse bg-gray-800"></div>
       )}
-        <p className='child capitalize text-[2vh] min-[100px]:text-xs min-[300px]:text-base sm:text-xl xl:text-base 2xl:text-[2vh] font-semibold group-hover:text-red-500 hover:brightness-50 transistion-all duration-200 ease-in-out'>{movie.title || movie.name}</p>
-        <button className='child absolute top-[calc(15rem/2-1.5rem)] xl:top-[calc(30vh/2-5vh)] 2xl:top-[calc(30vh/2-3vh)] right-[calc(50%-3rem)] 2xl:right-[calc(50%-2.5vw)] h-[3rem] w-[6rem] 2xl:h-[6vh] 2xl:w-[5vw] bg-red-500 custom-shadow  rounded-full transistion-all duration-200 opacity-0 scale-0 group-hover:opacity-100 group-hover:scale-100'>
+        <p className='child capitalize font-medium text-white text-sm md:text-lg mt-4 group-hover:text-red-500 hover:brightness-50 transistion-all duration-200 ease-in-out'>{movie.title || movie.name}</p>
+        <button className='child bg-red-500 absolute top-[calc(50%-1.5rem)] left-1/2 -translate-x-1/2 -translate-y-1/2 py-4 px-8 bg-red-main rounded-full shadow-btn z-10 text-white text-xl scale-50 transistion-all duration-200 opacity-0 group-hover:opacity-100 group-hover:scale-100'>
             <icons.caretRightFill className="w-3 h-3 md:w-4 md:h-4 lg:w-6 lg:h-6 xl:w-8 xl:h-8 2xl:w-[3vh] 2xl:h-[5vh] text-white"/>
         </button>
     </Link>

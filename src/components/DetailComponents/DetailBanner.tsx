@@ -4,7 +4,7 @@ import { detailBannerProps, genre, cast } from '../../interface/interfaces'
 
 const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
   return (
-    <div className={`${isLoading ? 'bg-gray-500 animate-pulse' : ''} relative md:min-h-[50vh] xl:min-h-screen min-w-screen z-0 after:content-[""] after:w-full after:h-full after:absolute after:bottom-0 after:left-0 after:-z-10 after:bg-gradient-to-t after:from-black after:via-gray-950 after:to-transparent px-5 py-15 md:flex md:gap-5 2xl:px-[5vw] 2xl:gap-12 xl:px-15 xl:py-40 xl:gap-8 bg-no-repeat bg-top bg-cover xl:bg-center`}
+    <div className={`${isLoading ? 'bg-gray-500 animate-pulse' : ''} relative px-4 md:px-8 lg:px-16 py-12 md:pt-32 md:pb-20 bg-center bg-no-repeat bg-cover z-0 before:content-[""] before:absolute before:bottom-0 before:left-0 before:right-0 before:h-1/2 before:bg-[#0f0f0f] before:-z-10 after:content-[""] after:absolute after:top-0 after:left-0 after:right-0 after:h-1/2 after:bg-gradient-to-t after:from-[#0f0f0f] after:to-transparent after:-z-10`}
     style={{
         backgroundImage: movie?.backdrop_path
         ? `image-set(
@@ -15,49 +15,59 @@ const DetailBanner:FC<detailBannerProps> = ({movie, casts, isLoading}) => {
         : "none",
     }}
     >
-        {/* Poster phim bên trái */}
-        <div className='hidden w-full md:basis-1/3 2xl:basis:2/5 z-30 md:px-2 xl:px-4 2xl:px-0 md:flex'>
-            {
-            isLoading ? (
-                <div className='min-w-[30vw] 2xl:min-h-[100vh] rounded-xl md:rounded-2xl lg:rounded-3xl animate-pulse bg-gray-700'></div>
-            ) : (
-                <img 
-                loading='lazy' 
-                srcSet={`
-                https://image.tmdb.org/t/p/w185/${movie.poster_path} 185w,
-                https://image.tmdb.org/t/p/w342/${movie.poster_path} 342w,
-                https://image.tmdb.org/t/p/w500/${movie.poster_path} 500w
-                `}
-                sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px"
-                src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500/${movie?.poster_path}` : '/assets/No_image_available.png'} 
-                alt={movie?.title} 
-                className='w-full h-full rounded-xl md:rounded-2xl lg:rounded-3xl object-cover object-center aspect-auto' />
-            )
-            }
-           
+        <div className='flex items-start -mx-4 max-h-fit'>
+            {/* Poster phim bên trái */}
+            <div className='hidden md:block w-64 lg:w-96 px-4'>
+                {
+                isLoading ? (
+                    <div className='min-w-[30vw] 2xl:min-h-[100vh] rounded-xl md:rounded-2xl lg:rounded-3xl animate-pulse bg-gray-700'></div>
+                ) : (
+                    <img 
+                    loading='lazy' 
+                    srcSet={`
+                    https://image.tmdb.org/t/p/w185/${movie.poster_path} 185w,
+                    https://image.tmdb.org/t/p/w342/${movie.poster_path} 342w,
+                    https://image.tmdb.org/t/p/w500/${movie.poster_path} 500w
+                    `}
+                    sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px"
+                    src={movie?.poster_path ? `https://image.tmdb.org/t/p/w500/${movie?.poster_path}` : '/assets/No_image_available.png'} 
+                    alt={movie?.title} 
+                    className='w-full rounded-3xl object-cover object-center aspect-auto' />
+                )
+                }
+            
+            </div>
+            
+            {/* Thông tin phim bên phải */}
+            <div className='px-4 flex-1 flex flex-col justify-between -my-2 lg:-my-4'>
+                <h1 className='py-2 lg:py-4 font-bold text-white text-3xl md:text-5xl lg:text-7xl'>{movie?.title || movie?.name}</h1>
+                <div className='py-4 flex flex-wrap items-center -mx-1'>
+                    {movie?.genres && movie.genres.map((genre: genre) => (
+                        <div key={genre.id} className='px-1 mb-4'>
+                            <span className='bg-[#0f0f0f] px-4 py-1 border-2 border-white rounded-full text-white text-xs lg:text-sm'>
+                                {genre.name}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+                <div className='py-2 lg:py-4 text-white text-xs md:text-sm lg:text-base'>
+                    {movie?.overview}
+                </div>
+                <div className='py-2 lg:py-4'>
+                    <h2 className='text-white text-xl font-medium'>{isLoading ? '' : 'Casts' }</h2>
+                    <div className='flex flex-wrap -mx-2 mt-1' >
+                        {casts && casts.map((cast: cast, i: number) => (
+                            <div key={i} className='w-28 px-2 mb-1'>
+                                <img src={`https://image.tmdb.org/t/p/w500/${cast.profile_path}`} className='rounded-xl object-cover aspect-auto'/>
+                                <span className='text-white text-xs md:text-sm font-sm'>{cast.name}</span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                
+            </div>
         </div>
         
-        {/* Thông tin phim bên phải */}
-        <div className='flex flex-col justify-baseline md:basis-3/5 gap-7 md:gap-5 lg:gap-10 z-30'>
-            <h1 className='text-2xl md:text-4xl xl:text-8xl 2xl:text-[8vh] text-white font-bold'>{movie?.title || movie?.name}</h1>
-            <div className='flex gap-2 2xl:gap-[0.5vw] py-5 md:py-0'>
-                {movie?.genres && movie.genres.map((genre: genre) => (
-                    <button key={genre.id} className='w-fit text-xs md:text-sm lg:text-base px-3 lg:px-5 2xl:px-10 2xl:text-[2vh] py-0.5 rounded-full border-white border-2 lg:border-3 font-medium lg:font-bold text-white bg-black'>{genre.name}</button>
-                ))}
-            </div>
-            <div className='text-white text-xs md:text-sm lg:text-xl 2xl:text-[3vh] font-normal lg:font-medium text-justify'>
-                {movie?.overview}
-            </div>
-            <h2 className='text-white font-semibold lg:text-2xl 2xl:text-[5vh]'>{isLoading ? '' : 'Casts' }</h2>
-            <div className='md:flex lg:gap-5 2xl:gap-10 gap-3 lg:pb-15 grid grid-cols-3' >
-                {casts && casts.map((cast: cast, i: number) => (
-                    <div key={i} className='md:w-full xl:w-25 2xl:w-[10vw]'>
-                        <img src={`https://image.tmdb.org/t/p/original/${cast.profile_path}`} className='rounded-xl md:rounded-2xl lg:h-40 2xl:h-[30vh] 2xl:mb-[2vh] lg:w-full aspect-auto'/>
-                        <span className='text-white text-xs md:text-sm lg:text-base 2xl:text-[3vh] text-wrap max-w-full'>{cast.name}</span>
-                    </div>
-                ))}
-            </div>
-        </div>
     </div>
   )
 }

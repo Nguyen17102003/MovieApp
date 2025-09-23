@@ -58,7 +58,7 @@ const Detail:FC = () => {
   const similar = results[3]?.data?.results ?? []
 
   return (
-    <div>
+    <div className='bg-[#0f0f0f]'>
       <Suspense>
         <DetailBanner
         movie={details}
@@ -67,15 +67,20 @@ const Detail:FC = () => {
       />
       </Suspense>
       
-
-      {videos.map((video: any) => (
-        <Video key={video.id} id={video.id} name={video.name} videoKey={video.key} />
+      <div className='py-2 px-4 md:px-8 lg:px-16'>
+        {videos.map((video: any) => (
+        <div className='mb-16'>
+          <Video key={video.id} id={video.id} name={video.name} videoKey={video.key} />
+        </div>
+        
       ))}
+      </div>
+      
 
       <Suspense>
-        <div className="min-w-screen w-full xl:px-15 py-10 bg-black">
-        <Slider title='Similar' type={type} movies={similar} isLoading={results[3].isLoading}/>
-      </div>
+        <div className="bg-[#0f0f0f] px-4 md:px-8 py-8 lg:px-16 md:py-16">
+          <Slider title='Similar' type={type} movies={similar} isLoading={results[3].isLoading}/>
+        </div>
       </Suspense>
       
     </div>
