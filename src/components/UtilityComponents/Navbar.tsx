@@ -25,6 +25,7 @@ const Navbar:FC = () => {
               /assets/logo-192.png 192w,
               /assets/logo-512.png 512w
             " 
+            sizes="(max-width: 640px) 48px, (max-width: 1024px) 96px, 48px"
             src='/assets/logo.png' alt="Logo icon" className='mr-4 w-8 md:w-12'/>
             <h1 className='text-white font-semibold text-2xl md:text-4xl'>
             theMovies
