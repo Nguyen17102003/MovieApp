@@ -2,11 +2,11 @@ import {FC} from 'react'
 import { Link } from 'react-router-dom'
 const Footer:FC = () => {
   return (
-    <div className='h-100 lg:h-120 px-8 py-12 md:p-16 bg-cover bg-no-repeat' style={{backgroundImage: 'url("/assets/footer.jpg")'}}>
+    <div className='h-100 lg:h-120 px-8 py-12 md:p-16 bg-cover bg-no-repeat' style={{backgroundImage: 'url("/assets/footer.webp")'}}>
       <div className='max-w-4xl h-full mx-auto flex flex-col justify-around'>
         {/* Logo */}
         <Link to="/"onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}  className='flex items-center justify-center hover:cursor-pointer group'>
-            <img loading='lazy' src='/assets/logo.png' alt="Logo icon" className='mr-2 md:mr-4 w-8 md:w-12'/>
+            <img loading='lazy' sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px" src='/assets/logo.png' alt="Logo icon" className='mr-2 md:mr-4 w-8 md:w-12'/>
             <h1 className='text-white font-semibold text-2xl md:text-4xl group-hover:text-red-500'>
             theMovies
             </h1>
