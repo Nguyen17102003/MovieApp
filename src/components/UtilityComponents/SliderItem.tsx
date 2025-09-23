@@ -17,7 +17,7 @@ const SliderItem:React.FC<sliderItemProps> = ({movie, type}) => {
   
   return (
     <Link 
-      className='group relative flex flex-col text-white cursor-pointer'
+      className='mt-8 group relative flex flex-col text-white cursor-pointer'
       to={`/${type}/${movie.id}`}>
        {isImageLoaded ? (
         <img

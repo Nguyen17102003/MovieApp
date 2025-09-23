@@ -15,6 +15,7 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
   }
   return (
     <div className='max-w-screen-2xl mx-auto'>
+        <div className='mt-8'>
         {isLoading ? 
         (<></>): ( 
         <>
@@ -55,6 +56,8 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
         </Swiper>
         </>)
         }
+        </div>
+        
     </div>
   )
 }
