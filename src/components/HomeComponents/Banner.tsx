@@ -8,10 +8,14 @@ const Banner:FC<bannerProps> = ({movie, isActive}) => {
     className='relative h-100 md:h-[36rem] lg:h-[52rem] px-4 md:px-12 py-12 md:py-32 flex justify-center bg-center bg-no-repeat bg-cover
     before:bg-[rgba(255, 255, 255, 0.4)] before:w-full before:h-full before:z-0 before:backdrop-brightness-45 before:absolute before:top-0 before:bottom-0 before:left-0 before:right-0
     after:z-10 after:w-full after:h-full after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent'
-    style={{
-    backgroundImage: movie.backdrop_path
-      ? `url(https://image.tmdb.org/t/p/original/${movie.backdrop_path})`
-      : "none"
+     style={{
+        backgroundImage: movie?.backdrop_path
+        ? `image-set(
+        url(https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}) 1x,
+        url(https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}) 2x,
+        url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path}) 3x
+        )`
+        : "none",
     }}>  
         <div className='max-w-screen-2xl z-20 h-fit flex items-center justify-between'>
             {/* Bên trái */}
@@ -42,7 +46,12 @@ const Banner:FC<bannerProps> = ({movie, isActive}) => {
 
             {/* Bên phải */}
             <div className={`hidden px-4 lg:block lg:w-1/3 ${isActive ? 'grow' : ''}`}>
-              <img loading='lazy' src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`${movie.title || 'Poster'}`} className='w-96 rounded-3xl aspect-auto'/>
+              <img loading='lazy' srcSet={`
+                    https://image.tmdb.org/t/p/w185/${movie.poster_path} 185w,
+                    https://image.tmdb.org/t/p/w342/${movie.poster_path} 342w,
+                    https://image.tmdb.org/t/p/w500/${movie.poster_path} 500w
+                    `}
+                sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px" src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={`${movie.title || 'Poster'}`} className='w-96 rounded-3xl aspect-auto'/>
             </div>
            
         </div>

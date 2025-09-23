@@ -191,9 +191,33 @@ const Provider = ({ children }: ProviderProps) => {
       return {...newData, results: [...oldData.results, ...newData.results]} // Thêm dữ liệu trang mới vào cache
       }
     )
-
-    
   };
+
+  const handleLoadMore = (nextPage: number) => {
+    // Nếu có search thì prefetch search query
+            if (searchTerm) {
+              queryClient.prefetchQuery({
+                queryKey: ['search', searchType, searchTerm, nextPage],
+                queryFn: () =>
+                  fetch(
+                    `${API_URL}/search/${searchType}?query=${encodeURIComponent(
+                      searchTerm
+                    )}&page=${nextPage}`,
+                    options
+                  ).then((res) => res.json()),
+              })
+            } else {
+              // Prefetch popular movies/tv
+              const key = searchType === 'movie' ? 'All movies' : 'All TV Series'
+              queryClient.prefetchQuery({
+                queryKey: [key, nextPage],
+                queryFn: () =>
+                  fetch(`${API_URL}/${searchType}/popular?page=${nextPage}`, options).then(
+                    (res) => res.json()
+                  ),
+              })
+            }
+  }
 
   const reset = () => {
     dispatch({ type: "RESET_MOVIE_PAGE" });
