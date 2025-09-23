@@ -20,7 +20,7 @@ const Navbar:FC = () => {
         <NavLink to="/" className='hidden md:flex items-center hover:cursor-pointer group'>
             <img loading='lazy'
              srcSet="
-              /assets/logo-48.png   48w,
+              /assets/logo-50.png   50w,
               /assets/logo-96.png   96w,
               /assets/logo-192.png 192w,
               /assets/logo-512.png 512w
