@@ -15,12 +15,11 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
   }
   return (
     <div className='max-w-screen-2xl mx-auto'>
-        <div className='mt-8'>
         {isLoading ? 
         (<></>): ( 
         <>
         {/* Bên trên*/}
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between mb-8'>
             <h2 className='text-white font-medium text-lg md:text-2xl appear'>{title}</h2>
             <button 
                 className='text-white border-white rounded-full border-3 md:border-2 font-semibold text-sm px-4 leading-5 md:px-8 md:text-xl md:leading-7 appear'
@@ -56,8 +55,6 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
         </Swiper>
         </>)
         }
-        </div>
-        
     </div>
   )
 }
