@@ -2,6 +2,7 @@ import {FC, useEffect, useRef} from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { listProps } from '../../interface/interfaces'
 import SliderItem from '../../components/UtilityComponents/SliderItem'
+import LazyLoad from '../UtilityComponents/LazyLoad'
 import { useData } from '../../context/Context'
 const List:FC<listProps> = ({movies, type, fetchFn}) => {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -46,7 +47,9 @@ const List:FC<listProps> = ({movies, type, fetchFn}) => {
         {movies?.length > 0 ? (
           movies.map((movie) => (
             <div key={movie.id} className='px-2 w-1/2 md:w-1/4 lg:w-1/6 mb-8'>
+            <LazyLoad>
               <SliderItem type={type} movie={movie} />
+            </LazyLoad>
             </div>
           ))) 
          : (<h1 className="xl:text-3xl py-10 px-10">Loading...</h1>)
