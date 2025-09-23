@@ -18,7 +18,14 @@ const Navbar:FC = () => {
        <div className={`max-w-screen-2xl flex justify-between items-center w-full`}>
         {/* Logo */}
         <NavLink to="/" className='hidden md:flex items-center hover:cursor-pointer group'>
-            <img loading='lazy' sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px" src='/assets/logo.png' alt="Logo icon" className='mr-4 w-8 md:w-12'/>
+            <img loading='lazy'
+             srcSet="
+              /assets/logo-48.png   48w,
+              /assets/logo-96.png   96w,
+              /assets/logo-192.png 192w,
+              /assets/logo-512.png 512w
+            " 
+            sizes="(max-width: 640px) 185px, (max-width: 1024px) 342px, 500px" src='/assets/logo.png' alt="Logo icon" className='mr-4 w-8 md:w-12'/>
             <h1 className='text-white font-semibold text-2xl md:text-4xl'>
             theMovies
             </h1>
