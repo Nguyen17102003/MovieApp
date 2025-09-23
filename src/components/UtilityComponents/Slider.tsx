@@ -2,9 +2,8 @@ import {FC} from 'react'
 import { sliderProps } from '../../interface/interfaces';
 import SliderItem from './SliderItem'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import { Autoplay } from 'swiper/modules';
+import 'swiper/css';
 import 'swiper/css/autoplay';
 
 const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
@@ -15,7 +14,7 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
     else window.location.href = '/tv'
   }
   return (
-    <div className='max-w-screen-2xl mx-auto'>
+    <div className='max-w-screen-2xl mx-auto mt-8'>
         {isLoading ? 
         (<></>): ( 
         <>
@@ -30,7 +29,6 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
 
         {/* Slideshow */}
         <Swiper 
-            className='mt-8'
             spaceBetween={15} 
             breakpoints={{
                 320: {
@@ -43,7 +41,7 @@ const Slider:FC<sliderProps> = ({title='', type, movies, isLoading}) => {
                     slidesPerView: 6,
                 },
             }}
-            modules={[Navigation, Pagination, Autoplay]}
+            modules={[Autoplay]}
             autoplay={{delay: 2500, disableOnInteraction: false}}
             pagination={false}>
             {
