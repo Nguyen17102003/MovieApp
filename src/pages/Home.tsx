@@ -1,7 +1,7 @@
 import {FC, useEffect, useState, lazy} from 'react'
 import { movie } from '../interface/interfaces'
 import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css/navigation';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css'
@@ -37,6 +37,10 @@ const Home:FC = () => {
       <HangingTrailer isOpen={isOpenTrailer}/>
       <main className='bg-black'>
           <Swiper 
+          modules={[Autoplay]}
+          speed={2500}
+          loop
+          autoplay={{delay: 2500, disableOnInteraction: false}}
           slidesPerView={1}
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           pagination={false}>
