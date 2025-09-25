@@ -1,42 +1,7 @@
-import { createContext, useContext, useReducer, useState, ReactNode } from "react";
-import { useQueries, useQuery, UseQueryResult } from "@tanstack/react-query";
+import { createContext, useContext, useState, ReactNode } from "react";
+import { useQueries, usePrefetchQuery, useQuery, UseQueryResult, useInfiniteQuery, UseInfiniteQueryResult } from "@tanstack/react-query";
 import { queryClient } from "./QueryClient";
 
-// Kiểu dữ liệu cho state (số trang đã render)
-interface State {
-  allMoviesPage: number;
-  allTVPage: number;
-}
-
-// Kiểu dữ liệu cho action của reducer
-type Action =
-  | { type: "NEXT_MOVIE_PAGE" }
-  | { type: "RESET_MOVIE_PAGE" }
-  | { type: "NEXT_TV_PAGE" }
-  | { type: "RESET_TV_PAGE" }
-
-
-// Các giá trị mặc định lưu số trang đã render
-const initialState: State = {
-  allMoviesPage: 1,
-  allTVPage: 1,
-};
-
-// Hàm reducer xử lý giá trị số trang
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case "NEXT_MOVIE_PAGE":
-      return { ...state, allMoviesPage: state.allMoviesPage + 1 };
-    case "RESET_MOVIE_PAGE":
-      return { ...state, allMoviesPage: 1 };
-    case "RESET_TV_PAGE":
-      return { ...state, allTVPage: 1 };
-    case "NEXT_TV_PAGE":
-      return { ...state, allTVPage: state.allTVPage + 1 };
-    default:
-      return state;
-  }
-}
 
 // Kiểu dữ liệu của dữ liệu context truyền xuống
 interface ContextType {
@@ -44,15 +9,17 @@ interface ContextType {
   trendingTV: UseQueryResult<any>;
   topratedMovies: UseQueryResult<any>;
   topratedTV: UseQueryResult<any>;
-  allMovies: UseQueryResult<any>;
-  allTVSeries: UseQueryResult<any>;
   hydrated: boolean;
   searchTerm: string | null,
-  searchQuery: UseQueryResult<any>;
+  searchQuery: UseInfiniteQueryResult<any>;
+  fetchHangingTrailer: UseQueryResult<any>;
   searchType: string | null;
-  loadMore: (type: string) => Promise<void>;
-  reset: () => void;
+  isOpenTrailer: boolean;
+  useMovies: (type: string) => UseInfiniteQueryResult<any>; 
   handleSearch: (keyword: string | null) => void;
+  prefetchHangingTrailer: (id: string) => void;
+  openTrailer: (id: string) => void;
+  setIsOpenTrailer: React.Dispatch<React.SetStateAction<boolean>>;
   setHydrated: React.Dispatch<React.SetStateAction<boolean>>
   setSearchType: React.Dispatch<React.SetStateAction<string | null>>;
   setSearchTerm: React.Dispatch<React.SetStateAction<string | null>>
@@ -67,8 +34,9 @@ interface ProviderProps {
 
 // Provider cung cấp data cho các component 
 const Provider = ({ children }: ProviderProps) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
   const [hydrated, setHydrated] = useState(false)
+  const [currentMovieId, setCurrentMovieId] = useState<string | null>(null)
+  const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false)
   const [searchTerm, setSearchTerm] = useState<string | null>(""); //  Chuỗi tìm kiếm được gửi đi
   const [searchType, setSearchType] = useState<string | null>("movie"); // Chuỗi người dùng nhập tạm thời trên thanh input
 
@@ -91,7 +59,7 @@ const Provider = ({ children }: ProviderProps) => {
         // Trending Movie
         queryKey: ["Trending movies"],
         queryFn: () =>
-          fetch(`${API_URL}/trending/movie/day`, options).then((res) =>
+          fetch(`${API_URL}/trending/movie/day?include_adult=false`, options).then((res) =>
             res.json()
           ),
         enabled: !queryClient.getQueryData(["Trending movies"]),
@@ -100,7 +68,7 @@ const Provider = ({ children }: ProviderProps) => {
         // Trending TV 
         queryKey: ["Trending TV"],
         queryFn: () =>
-          fetch(`${API_URL}/trending/tv/day`, options).then((res) =>
+          fetch(`${API_URL}/trending/tv/day?include_adult=false`, options).then((res) =>
             res.json()
           ),
         enabled: !queryClient.getQueryData(["Trending TV"]),
@@ -109,7 +77,7 @@ const Provider = ({ children }: ProviderProps) => {
         // Top rated movie
         queryKey: ["Top rated movies"],
         queryFn: () =>
-          fetch(`${API_URL}/movie/top_rated`, options).then((res) =>
+          fetch(`${API_URL}/movie/top_rated?include_adult=false`, options).then((res) =>
             res.json()
           ),
         enabled: !queryClient.getQueryData(["Top rated movies"]),
@@ -118,38 +86,51 @@ const Provider = ({ children }: ProviderProps) => {
         // Top rated tv
         queryKey: ["Top rated TV"],
         queryFn: () =>
-          fetch(`${API_URL}/tv/top_rated`, options).then((res) =>
+          fetch(`${API_URL}/tv/top_rated?include_adult=false`, options).then((res) =>
             res.json()
           ),
         enabled: !queryClient.getQueryData(["Top rated TV"]),
       },
-      {
-        // Toàn bộ movie ở trang 1 xếp theo độ nổi tiếng
-        queryKey: ["All movies"],
-        queryFn: () =>
-          fetch(`${API_URL}/movie/popular`, options).then((res) => res.json()),
-      },
-      {
-        // Toàn bộ tv series ở trang 1 xếp theo độ nổi tiếng
-        queryKey: ["All TV Series"],
-        queryFn: () =>
-          fetch(`${API_URL}/tv/popular`, options).then((res) => res.json()),
-      },
     ],
   });
 
+  const prefetchHangingTrailer = (id: string) => usePrefetchQuery({
+    queryKey: ['Movie', id],
+    queryFn: () => 
+      fetch(`${API_URL}/movie/${id}/videos?language=en-US`, options).then(res => res.json()),
+  })
+  const fetchHangingTrailer = useQuery({
+    queryKey: ['Movie', currentMovieId],
+    queryFn: () => 
+      fetch(`${API_URL}/movie/${currentMovieId}/videos?language=en-US`, options).then(res => res.json()),
+    enabled: isOpenTrailer
+  })
+  const openTrailer = (id: string) => {
+    setCurrentMovieId(id)
+    setIsOpenTrailer(true)
+  }
   // Hàm tìm kiếm
-  const searchQuery = useQuery({
-    queryKey: ['search', searchType, searchTerm],
-    queryFn: () =>
-      fetch(
-        `${API_URL}/search/${searchType}?query=${encodeURIComponent(
-          searchTerm || ""
-        )}`,
-        options
-      ).then((res) => res.json()),
-    enabled: !!searchTerm && !!searchType, // Chỉ thực hiện search khi chuỗi người nhập tạm thời được công nhận gửi đi
-  });
+  const searchQuery = useInfiniteQuery({
+  queryKey: ['search', searchType, searchTerm],
+  queryFn: async ({ pageParam = 1 }) => {
+    const res = await fetch(
+      `${API_URL}/search/${searchType}?query=${encodeURIComponent(
+        searchTerm || ""
+      )}&page=${pageParam}&include_adult=false`,
+      options
+    );
+    return res.json();
+  },
+  initialPageParam: 1,
+  getNextPageParam: (lastPage) => {
+    if (lastPage.page < lastPage.total_pages) {
+      return lastPage.page + 1;
+    }
+    return undefined;
+  },
+  enabled: !!searchTerm && !!searchType,
+});
+
 
   const handleSearch = (keyword: string | null) => {
     setSearchTerm(keyword)
@@ -162,70 +143,23 @@ const Provider = ({ children }: ProviderProps) => {
     }
   };
 
-  // Hàm render các trang kế tiếp
-  const loadMore = async () => {
-    // update reducer state
-    if (searchType === "movie") {
-      dispatch({ type: "NEXT_MOVIE_PAGE" })
-    } else {
-      dispatch({ type: "NEXT_TV_PAGE" })
-    }
-    const page =
-      searchType === "movie" ? state.allMoviesPage + 1 : state.allTVPage + 1;  
-    // Nếu thể loại là movie thì số trang movie + 1, còn không số trang tv + 1
-
-    if(searchTerm) {
-      const res = await fetch(`${API_URL}/search/${searchType}?query=${searchTerm}&page=${page}`, options);
-      const newData = await res.json();
-      queryClient.setQueryData(['search', searchType, searchTerm], (oldData: any) => {
-      if (!oldData) return newData; // Nếu chưa có dữ liệu trong cache, gán dữ liệu mới
-      return {...newData, results: [...oldData.results, ...newData.results]} // Thêm dữ liệu trang mới vào cache
-      })
-      return
-    }
-      const key = searchType === 'movie' ? 'All movies' : 'All TV Series'
-      const res = await fetch(`${API_URL}/${searchType}/popular?page=${page}`, options);
-      const newData = await res.json();
-      queryClient.setQueryData([key], (oldData: any) => {
-      if (!oldData) return newData; // Nếu chưa có dữ liệu trong cache, gán dữ liệu mới
-      return {...newData, results: [...oldData.results, ...newData.results]} // Thêm dữ liệu trang mới vào cache
-      }
-    )
-  };
-
-  const handleLoadMore = (nextPage: number) => {
-    // Nếu có search thì prefetch search query
-            if (searchTerm) {
-              queryClient.prefetchQuery({
-                queryKey: ['search', searchType, searchTerm, nextPage],
-                queryFn: () =>
-                  fetch(
-                    `${API_URL}/search/${searchType}?query=${encodeURIComponent(
-                      searchTerm
-                    )}&page=${nextPage}`,
-                    options
-                  ).then((res) => res.json()),
-              })
-            } else {
-              // Prefetch popular movies/tv
-              const key = searchType === 'movie' ? 'All movies' : 'All TV Series'
-              queryClient.prefetchQuery({
-                queryKey: [key, nextPage],
-                queryFn: () =>
-                  fetch(`${API_URL}/${searchType}/popular?page=${nextPage}`, options).then(
-                    (res) => res.json()
-                  ),
-              })
-            }
+  const useMovies = (type: string) => {
+    return useInfiniteQuery({
+      queryKey: [type],
+      queryFn: async ({ pageParam = 1 }) => {
+        const res = await fetch(`${API_URL}/${type}/popular?page=${pageParam}&include_adult=false`, options)
+        return res.json()
+      },
+      initialPageParam: 1,
+      getNextPageParam: (lastPage) => {
+        if (lastPage.page < lastPage.total_pages) {
+          return lastPage.page + 1
+        }
+        return undefined
+      },
+      enabled: true
+    })
   }
-
-  const reset = () => {
-    dispatch({ type: "RESET_MOVIE_PAGE" });
-    dispatch({ type: "RESET_TV_PAGE" });
-    queryClient.removeQueries({ queryKey: ["All TV Series"] })
-    queryClient.removeQueries({ queryKey: ["All movies"] });
-    queryClient.removeQueries({ queryKey: ['search', searchType, searchTerm] })
-  };
 
 
   // Promise từ các lần fetch trên 
@@ -233,16 +167,15 @@ const Provider = ({ children }: ProviderProps) => {
   const trendingTV = results[1];
   const topratedMovies = results[2];
   const topratedTV = results[3];
-  const allMovies = results[4];
-  const allTVSeries = results[5];
 
   // Các dữ liệu truyền qua lại giữa các component
   const passingData: ContextType = {
     trendingMovies, trendingTV, 
-    topratedMovies, topratedTV,
-    allMovies, allTVSeries, hydrated,
+    topratedMovies, topratedTV, fetchHangingTrailer,
+    useMovies, hydrated, isOpenTrailer,
     searchQuery, searchType, searchTerm,
-    loadMore, reset, handleSearch,
+    handleSearch, openTrailer, 
+    prefetchHangingTrailer, setIsOpenTrailer,
     setHydrated, setSearchType, setSearchTerm
   };
 

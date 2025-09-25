@@ -14,17 +14,17 @@ const Footer:FC = () => {
 
         {/* Phần bên dưới */}
         <div className='flex text-white font-semibold text-base md:text-2xl items-start justify-between flex-wrap -mx-2'>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Home</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Live</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">You must watch</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Contact us</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">FAQ</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Recent release</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Term of services</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Premium</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Top IMDB</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">About us</a>
-            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500">Privacy policy</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Home</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Live</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">You must watch</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Contact us</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">FAQ</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Recent release</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Term of services</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Premium</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Top IMDB</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">About us</a>
+            <a className="w-1/2 md:w-1/3 p-2 hover:text-red-500 cursor-pointer">Privacy policy</a>
         </div>  
       </div>
             

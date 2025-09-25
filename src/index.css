@@ -18,9 +18,10 @@ html, body {
 #root {
   width: 100%;
   min-height: 100%;
+  --items-per-row: 2;
 }
-#root {
-    width: 100%;
+.input-disabled {
+    pointer-events: none;
 }
 .custom-shadow {
     box-shadow: 0 0 7px 5px rgb(158, 4, 45);
@@ -99,3 +100,13 @@ button {
     }
 }
 
+@media (min-width: 640px) { /* sm */
+  :root {
+    --items-per-row: 4;
+  }
+}
+@media (min-width: 1024px) { /* lg */
+  :root {
+    --items-per-row: 6;
+  }
+}

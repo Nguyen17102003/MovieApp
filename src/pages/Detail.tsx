@@ -59,15 +59,13 @@ const Detail:FC = () => {
 
   return (
     <div className='bg-[#0f0f0f]'>
-      <Suspense>
-        <DetailBanner
+      <DetailBanner
         movie={details}
         casts={casts}
         isLoading={results[0].isLoading}
       />
-      </Suspense>
       
-      <div className='py-2 px-4 md:px-8 lg:px-16'>
+      <div className='py-2 min-[100px]:px-2 sm:px-4 md:px-8 lg:px-16'>
         {videos.map((video: any) => (
         <div className='mb-16'>
           <Video key={video.id} id={video.id} name={video.name} videoKey={video.key} />
@@ -79,7 +77,7 @@ const Detail:FC = () => {
 
       <Suspense>
         <div className="bg-[#0f0f0f] px-4 md:px-8 py-8 lg:px-16 md:py-16">
-          <Slider title='Similar' type={type} movies={similar} isLoading={results[3].isLoading}/>
+          <Slider title='Similar' type={type} movies={similar} />
         </div>
       </Suspense>
       

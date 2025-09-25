@@ -6,6 +6,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css'
 import { useData } from '../context/Context'
+import HangingTrailer from '../components/UtilityComponents/HangingTrailer';
 
 const Banner = lazy(() => import('../components/HomeComponents/Banner'))
 const Slider = lazy(() => import('../components/UtilityComponents/Slider'))
@@ -14,11 +15,18 @@ const Home:FC = () => {
   const [activeIndex, setActiveIndex] = useState(0); // Index của slide hiện tại 
   const { trendingMovies, trendingTV, 
         topratedMovies, topratedTV, 
-        reset, setSearchTerm,
-        setHydrated } = useData() 
+        setSearchTerm, setHydrated,
+        isOpenTrailer } = useData() 
+  const placeholderMovie: movie = {
+    backdrop_path: '',
+    title: '',
+    overview: '',
+    poster_path: '',
+    id: '',
+    name: ''
+  }
   useEffect(() => {
     setSearchTerm(null)
-    reset()
   }, [])
   useEffect(() => {
     if(trendingMovies.data)
@@ -26,27 +34,34 @@ const Home:FC = () => {
   }, [trendingMovies])
   return (
     <>
+      <HangingTrailer isOpen={isOpenTrailer}/>
       <main className='bg-black'>
           <Swiper 
           slidesPerView={1}
           onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
           pagination={false}>
           {
-          trendingMovies.data?.results.map((movie: movie, index:number) => (
+          !trendingMovies.data ?
+          (
+            <SwiperSlide>
+              <Banner isLoading={true} movie={placeholderMovie} isActive={true}/>
+            </SwiperSlide>
+          ) :   trendingMovies.data?.results.map((movie: movie, index:number) => (
             <SwiperSlide key={movie.id}>
-              <Banner movie={movie} isActive={index === activeIndex}/>
+              <Banner isLoading={false} movie={movie} isActive={index === activeIndex}/>
             </SwiperSlide>
           ))
           }
           </Swiper>
           <div className='bg-black-main px-4 md:px-8 py-8 md:py-16'>
-            <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []} isLoading={trendingMovies.isLoading}/>
-            <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []} isLoading={topratedMovies.isLoading}/>
-            <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []} isLoading={trendingTV.isLoading}/>
-            <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []} isLoading={topratedMovies.isLoading}/>
+            <Slider title={'Trending Movies'} type={'movie'} movies={trendingMovies.data?.results || []} />
+            <Slider title={'Top Rated Movies'} type={'movie'} movies={topratedMovies.data?.results || []} />
+            <Slider title={'Trending TV'} type={'tv'} movies={trendingTV.data?.results || []} />
+            <Slider title={'Top Rated TV'} type={'tv'} movies={topratedTV.data?.results || []} />
           </div>
-      </main>
+      </main>  
     </>
+      
   )
 }
 

@@ -8,8 +8,7 @@ const Video:FC<videoProps> = ({id, name, videoKey}) => {
         loading='lazy'
         src={`https://www.youtube.com/embed/${videoKey}?rel=0`}
         title={name}
-        width='100%'
-        height={800}
+        className='w-full h-[70vh] md:h-[800px]'
         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
         allowFullScreen/>
     </div>

@@ -29,7 +29,8 @@ export interface cast {
 
 export interface bannerProps {
     movie: movie,
-    isActive: boolean
+    isActive: boolean,
+    isLoading: boolean
 }
 
 export interface detailBannerProps {
@@ -45,14 +46,14 @@ export interface gradientProps {
 export interface listProps {
     type: string,
     movies: movie[],
-    fetchFn: React.MouseEventHandler<HTMLButtonElement>
+    isLoading: boolean,
+    isFetchingNextPage: boolean
 }
 
 export interface sliderProps {
     title: string,
     type: string | undefined,
     movies: movie[],
-    isLoading: boolean
 }
 
 export interface sliderItemProps {
@@ -69,4 +70,15 @@ export interface videoProps {
 export interface pagesProps {
     location: string,
     type: string
+}
+
+export interface mediaProps {
+    type: 'video' | 'image',
+    src: string,
+    title: string,
+    className?: string,
+}
+
+export interface hangingTrailerProps {
+    isOpen: boolean
 }
