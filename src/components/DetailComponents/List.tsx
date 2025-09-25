@@ -7,10 +7,10 @@ import icons from '../../../public/assets/icon'
 const List:FC<listProps> = ({movies, type, isLoading, isFetchingNextPage}) => {
   const inputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
-  const getQuery = () => (new URLSearchParams(useLocation().search))
-  const query = getQuery()
-  const searchTerm = query.get('query')
-  const { handleSearch } = useData()
+  const location = useLocation() 
+  const query = new URLSearchParams(location.search)
+  const queryString = query.get("query")
+  const { searchBaseOnLocation, handleSearch, keyword, setKeyword, searchTerm } = useData()
 
   const [itemsPerRow, setItemsPerRow] = useState(2)
 
@@ -32,12 +32,14 @@ const List:FC<listProps> = ({movies, type, isLoading, isFetchingNextPage}) => {
   const skeletonCount = remainder === 0 ? 0 : itemsPerRow - remainder;
 
   useEffect(() => {
-    if(searchTerm){
-      handleSearch(searchTerm)
-      inputRef.current!.value = searchTerm
+  if (queryString) {
+    searchBaseOnLocation(queryString)
+    if (inputRef.current) {
+      inputRef.current.value = queryString
     }
-  }, [])
-  
+  }
+  }, [queryString])
+
   return (
     <div className='bg-[#0f0f0f] px-4 md:px-8 py-8 xl:p-16'>
       <div className='max-w-screen-2xl mx-auto'>
@@ -45,22 +47,31 @@ const List:FC<listProps> = ({movies, type, isLoading, isFetchingNextPage}) => {
             <input type="text" 
             placeholder='Enter keyword' 
             ref={inputRef}
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
             onKeyDown={(e) => {
               if(e.key === 'Enter'){
                 const value = inputRef.current?.value?? ""
                 navigate(`?query=${encodeURIComponent(value)}`)
                 e.currentTarget.blur()
-                handleSearch(value)
+                handleSearch()
+              }
+            }}
+            onBlur={(e) => {
+              const value = inputRef.current?.value?? ""
+              if(value === ''){
+                navigate(``)
+                handleSearch()
               }
             }}
             className={`${isLoading ? 'input-disabled' : ''} outline-none border-none rounded-full px-6 py-2 bg-black placeholder-gray-500 text-white flex-1 md:flex-auto md:w-96`}/>
             <button 
             disabled={isLoading}
-            className='flex  items-center gap-2 px-4 py-1 text-sm font-medium leading-5 rounded-full md:px-5 md:text-xl md:leading-7 bg-red-500 text-white custom-shadow'
+            className='flex items-center gap-2 px-4 py-1 text-sm font-medium leading-5 rounded-full md:px-5 md:text-xl md:leading-7 bg-red-500 text-white custom-shadow'
             onClick={() => {
               const value = inputRef.current?.value?? ""
               navigate(`?query=${encodeURIComponent(value)}`)
-              handleSearch(value)}
+              handleSearch()}
             }
             >
               {isLoading && searchTerm && <icons.spinner className='w-4 h-4'/>}
@@ -90,7 +101,7 @@ const List:FC<listProps> = ({movies, type, isLoading, isFetchingNextPage}) => {
               </div>
           ))) 
           : (
-            !isLoading && !isFetchingNextPage && searchTerm && <div className="bg-[#0f0f0f] w-full px-4 md:px-8 py-8 xl:p-16 flex flex-col items-center justify-center">
+            !isLoading && !isFetchingNextPage && movies?.length === 0 && <div className="bg-[#0f0f0f] w-full px-4 md:px-8 py-8 xl:p-16 flex flex-col items-center justify-center">
             <h1
               id="results"
               className="text-white text-[7vh] font-bold capitalize"

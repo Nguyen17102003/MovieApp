@@ -1,4 +1,4 @@
-import { FC, lazy, Suspense, useEffect, useMemo } from 'react'
+import { FC, lazy, useEffect, useMemo } from 'react'
 import { Outlet } from 'react-router-dom'
 import { useData } from '../context/Context'
 import { pagesProps } from '../interface/interfaces'
@@ -7,21 +7,21 @@ import icons from '../../public/assets/icon'
 const Gradient = lazy(() => import('../components/UtilityComponents/Gradient'))
 const List = lazy(() => import('../components/DetailComponents/List'))
 
-const Pages: FC<pagesProps> = ({ location, type }) => {
+const Pages: FC<pagesProps> = ({ pathname, type }) => {
   const {
     useMovies,
     searchQuery,
     searchTerm,
     searchType,
     setSearchType,
-    setHydrated,
+    setHydrated
   } = useData()
 
   // reset khi thay đổi location
   useEffect(() => {
     setSearchType(type)
     setHydrated(false)
-  }, [location])
+  }, [pathname])
 
   // Query cho popular
   const moviesQuery = useMovies(type)
@@ -29,7 +29,7 @@ const Pages: FC<pagesProps> = ({ location, type }) => {
   // chọn query: search hay popular
   const activeQuery =
     searchTerm && searchType === type ? searchQuery : moviesQuery
-
+    
   const movies = useMemo(() => {
     if (!activeQuery.data) return []
     return activeQuery.data.pages.flatMap((page: any) => page.results)
@@ -43,7 +43,7 @@ const Pages: FC<pagesProps> = ({ location, type }) => {
 
   return (
     <div className="w-full">
-      <Gradient location={location} />
+      <Gradient location={pathname} />
       <div id="results">
         <List isLoading={isLoading} isFetchingNextPage={isFetchingNextPage} type={type} movies={movies} />
       </div>

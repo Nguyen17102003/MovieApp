@@ -25,8 +25,8 @@ const App: React.FC = () => {
         <Navbar/>
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/movie' element={<Pages type='movie' location='Movies'/>} />
-          <Route path='/tv' element={<Pages type='tv' location='TV Series' />} />
+          <Route path='/movie' element={<Pages type='movie' pathname='Movies'/>} />
+          <Route path='/tv' element={<Pages type='tv' pathname='TV Series' />} />
           <Route path='/:type/:id' element={<Detail />} />
         </Routes>
         <Footer/>

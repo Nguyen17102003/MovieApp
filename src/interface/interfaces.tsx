@@ -68,7 +68,7 @@ export interface videoProps {
 }
 
 export interface pagesProps {
-    location: string,
+    pathname: string,
     type: string
 }
 

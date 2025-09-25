@@ -1,9 +1,11 @@
 import {FC, useState, useEffect} from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { useData } from '../../context/Context'
 
 const Navbar:FC = () => {
+  const location = useLocation()
   const { hydrated } = useData()
+  const search = location.search
   const [isScrolled, setIsScrolled] = useState<boolean>(false) // State quản lý thanh navbar có đổi màu khi cuộn hay không
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +46,7 @@ const Navbar:FC = () => {
             </NavLink>
 
             {/* Movie */}
-            <NavLink to='/movie' className='relative px-4 group'>
+            <NavLink to={{ pathname: "/movie", search: search }} className='relative px-4 group'>
             {({ isActive }) => (
               <>
                 <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-medium text-2xl leading-8">
@@ -60,7 +62,7 @@ const Navbar:FC = () => {
             </NavLink>
 
             {/* TV */}
-            <NavLink to='/tv' className='relative px-4 group'>
+            <NavLink to={{ pathname: "/tv", search: search }} className='relative px-4 group'>
             {({ isActive }) => (
               <>
                 <h1 className="text-white flex text-nowrap group-hover:text-red-500 font-medium text-2xl leading-8">

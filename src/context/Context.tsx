@@ -10,17 +10,20 @@ interface ContextType {
   topratedMovies: UseQueryResult<any>;
   topratedTV: UseQueryResult<any>;
   hydrated: boolean;
-  searchTerm: string | null,
+  searchTerm: string | null;
   searchQuery: UseInfiniteQueryResult<any>;
   fetchHangingTrailer: UseQueryResult<any>;
   searchType: string | null;
   isOpenTrailer: boolean;
+  keyword: string;
   useMovies: (type: string) => UseInfiniteQueryResult<any>; 
-  handleSearch: (keyword: string | null) => void;
+  handleSearch: () => void;
   prefetchHangingTrailer: (id: string) => void;
   openTrailer: (id: string) => void;
+  searchBaseOnLocation: (locationQuery: string) => void;
   setIsOpenTrailer: React.Dispatch<React.SetStateAction<boolean>>;
-  setHydrated: React.Dispatch<React.SetStateAction<boolean>>
+  setHydrated: React.Dispatch<React.SetStateAction<boolean>>;
+  setKeyword: React.Dispatch<React.SetStateAction<string>>;
   setSearchType: React.Dispatch<React.SetStateAction<string | null>>;
   setSearchTerm: React.Dispatch<React.SetStateAction<string | null>>
 }
@@ -37,6 +40,7 @@ const Provider = ({ children }: ProviderProps) => {
   const [hydrated, setHydrated] = useState(false)
   const [currentMovieId, setCurrentMovieId] = useState<string | null>(null)
   const [isOpenTrailer, setIsOpenTrailer] = useState<boolean>(false)
+  const [keyword, setKeyword] = useState<string>('')
   const [searchTerm, setSearchTerm] = useState<string | null>(""); //  Chuỗi tìm kiếm được gửi đi
   const [searchType, setSearchType] = useState<string | null>("movie"); // Chuỗi người dùng nhập tạm thời trên thanh input
 
@@ -131,8 +135,18 @@ const Provider = ({ children }: ProviderProps) => {
   enabled: !!searchTerm && !!searchType,
 });
 
+  const searchBaseOnLocation = (locationQuery: string) => {
+    setSearchTerm(locationQuery)
+    const el = document.getElementById("results")
+      if (el) {
+        const yOffset = -100
+        const y = el.getBoundingClientRect().top + window.scrollY + yOffset
 
-  const handleSearch = (keyword: string | null) => {
+        window.scrollTo({ top: y, behavior: "smooth" })
+    }
+  }
+
+  const handleSearch = () => {
     setSearchTerm(keyword)
     const el = document.getElementById("results")
       if (el) {
@@ -173,9 +187,9 @@ const Provider = ({ children }: ProviderProps) => {
     trendingMovies, trendingTV, 
     topratedMovies, topratedTV, fetchHangingTrailer,
     useMovies, hydrated, isOpenTrailer,
-    searchQuery, searchType, searchTerm,
-    handleSearch, openTrailer, 
-    prefetchHangingTrailer, setIsOpenTrailer,
+    searchQuery, searchType, searchTerm, keyword,
+    handleSearch, openTrailer, searchBaseOnLocation,
+    prefetchHangingTrailer, setIsOpenTrailer, setKeyword,
     setHydrated, setSearchType, setSearchTerm
   };
 
