@@ -13,11 +13,7 @@ const Banner:FC<bannerProps> = ({movie, isActive, isLoading}) => {
     after:z-10 after:w-full after:h-full after:absolute after:bottom-0 after:right-0 after:bg-gradient-to-t after:via-transparent after:from-black after:to-transparent`}
      style={{
         backgroundImage: movie?.backdrop_path && !isLoading
-        ? `image-set(
-        url(https://image.tmdb.org/t/p/w780/${movie?.backdrop_path}) 1x,
-        url(https://image.tmdb.org/t/p/w1280/${movie?.backdrop_path}) 2x,
-        url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path}) 3x
-        )`
+        ? `url(https://image.tmdb.org/t/p/original/${movie?.backdrop_path})`
         : "none",
     }}>  
         <div className='max-w-screen-2xl z-20 h-fit flex items-center justify-between'>
